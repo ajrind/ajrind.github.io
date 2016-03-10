@@ -28,7 +28,7 @@ function init()
 
 	// CONTROLS
 	// ORBIT
-    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    //controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 	// STATS
 	stats = new Stats();
@@ -69,10 +69,6 @@ function init()
 	map =  Map.getMap();
 	xDim = Map.getXDim();
 	zDim = Map.getZDim();
-	
-	var testMapWalls = [['11', '2', '5'],
-						['10', '7', '8'],
-						['7', '2', '4']];
 	*/
 	var xDim = 15;
 	var zDim = 15;
