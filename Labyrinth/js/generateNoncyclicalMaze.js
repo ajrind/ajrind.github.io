@@ -5,6 +5,12 @@
 // non-cyclical maze to use in this game. Essentially, the maze starts as all walls and 
 // the algorithm "carves" out the maze.
 
+/*************************************************************
+* This algorithm is still incomplete. I started converting it 
+* from the pseudocode that I wrote into JavaScript, but it still
+* needs some tweeks.
+**************************************************************/
+
 // namespace for NCMaze
 var NCMaze = function(pxDim, pyDim) {
    this.xDim = pxDim;
