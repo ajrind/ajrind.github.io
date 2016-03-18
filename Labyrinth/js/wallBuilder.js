@@ -1,26 +1,53 @@
+// TODO: Change this into a class instead of functions / global variables
+
 // global wall variables
 var wallWidthRatio; // The width of the labyrinth walls
 var xLen; // length of a square
 var zLen; // height of a square
 var yLen; // height of the wall
+var startCoords;
+var finishCoords;
 var wallMaterial;     // texture used for the labyrinth walls
+var minimap;
+var xDim;
+var zDim;
+var wallMap;
 initWallVars();
 
 function initWallVars()
 {
 	xLen = zLen = 40;    // the length/width of a square
 	yLen = 40;           // wall height
-	wallWidthRatio = 1; // Must be between 0 and 1. Change this to 1 to create "cube" walls.
- 
+	wallWidthRatio = 1;  // Must be between 0 and 1. Change this to 1 to create "cube" walls.
+ 	startCoords = {x:0, z:0};
+ 	finishCoords = {x:0, z:0};
 	// TODO: Fix texture ratio for long walls
 	var wallTexture = new THREE.ImageUtils.loadTexture( 'textures/stoneWall1.png' );
 	wallTexture.wrapS = wallTexture.wrapT = THREE.RepeatWrapping;
 	wallTexture.repeat.set( 1, 1);
-	wallMaterial = new THREE.MeshBasicMaterial( { map: wallTexture } );
+	wallMaterial = new THREE.MeshLambertMaterial( { map: wallTexture } );
 }
 
-function buildLabyrinth(wallMap, xDim, zDim)
+function getStartCoords()
 {
+	return startCoords;
+}
+
+function getFinishCoords()
+{
+	return finishCoords;
+}
+
+function getMinimap()
+{
+	return minimap;
+}
+
+function buildLabyrinth(pwallMap, pxDim, pzDim)
+{
+	wallMap = pwallMap;
+	xDim = pxDim;
+	zDim = pzDim;
 	// the starting locations are calculated based on the size of the map
 	var Labyrinth = new THREE.Object3D();
 
@@ -30,12 +57,11 @@ function buildLabyrinth(wallMap, xDim, zDim)
     	var xLocation = -xDim * xLen / 2
     	for (var xCoord = 0; xCoord < xDim; xCoord++)
         {
-        	//console.log("xCoord: ", xCoord, "    zCoord: ", zCoord);
-        	var wallMesh;
+        	var wallMesh = undefined;
         	switch(wallMap[zCoord][xCoord])
         	{
         		case '0': // empty wall
-        			wallMesh = new THREE.Object3D();
+        			// do nothing
         			break;
         		case '1': // vertical wall
         			wallMesh = createWall(1)        			
@@ -71,19 +97,27 @@ function buildLabyrinth(wallMap, xDim, zDim)
         			wallMesh = createWall(11)
         			break;
         		case 's': // starting square
-        			wallMesh = new THREE.Object3D();
+        			startCoords.x = xLocation;
+        			startCoords.z = zLocation;
         			break;
         		case 'f': // finish square
-        			wallMesh = new THREE.Object3D();
+        			finishCoords.x = xLocation;
+        			finishCoords.z = zLocation;
         			break;
         		default:
         			console.log("ERROR: ", wallMap[zCoord][xCoord], " is not a valid wall type!")
         	}
+        	
+        	if (wallMesh)
+        	{
+	        	wallMesh.position.x = xLocation;
+	        	wallMesh.position.y = yLen/2
+	        	wallMesh.position.z = zLocation;
+	        	wallMesh.castShadow = true;
+	        	Labyrinth.add( wallMesh );
+   	        	console.log(wallMesh);
 
-        	wallMesh.position.x = xLocation;
-        	wallMesh.position.y = yLen/2
-        	wallMesh.position.z = zLocation;
-        	Labyrinth.add( wallMesh );
+        	}
         	xLocation += xLen
     	}
     	zLocation += zLen
@@ -92,10 +126,10 @@ function buildLabyrinth(wallMap, xDim, zDim)
 }
 
 // I decided to just create the wall segments on an as-needed basis (instead of at the top of function)
-// It may be a lot of duplicated code, but it's faster than instantiating uneeded materials
+// It may be a some duplicated code, but it's faster than instantiating uneeded materials
 // TODO: Stress test this to see how much faster it really is...
 // TODO: regression tests for this to make sure that we're really getting the correct walls.
-// TODO: algebraic reductions
+// TODO: finish algebraic reductions
 function createWall(wallNumber)
 {
 	var wallMesh;

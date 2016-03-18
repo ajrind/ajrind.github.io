@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,6 +20,7 @@
 <script src="js/controls.js"></script>
 <script src="js/tween.min.js"></script>
 <script src="js/daySimulation.js"></script>
+<script src="js/colorChange.js"></script>
 <script src="js/initialize.js"></script>
 
 <!-- jQuery code to display an information button and box when clicked. -->
@@ -71,11 +71,21 @@ function animate(time)
 
 function update()
 {
+	//animateColor();
 	var oldX = MovingCube.position.x;
 	var oldY = MovingCube.position.y;
 	var oldZ = MovingCube.position.z;
-	getMovement();	
-
+	getMovement();
+	/*
+	var collision = undefined;
+	collision = checkCollision(MovingCube.position)	
+	if (collision)
+	{
+		MovingCube.position.x = oldX;
+		MovingCube.position.y = oldY;
+		MovingCube.position.z = oldZ;
+	}
+	*/
 	camera.position.x = MovingCube.position.x;
 	camera.position.y = MovingCube.position.y;
 	camera.position.z = MovingCube.position.z;
@@ -86,7 +96,6 @@ function render(time)
 {
 	renderer.render( scene, camera );
 }
-
 
 </script>
 
