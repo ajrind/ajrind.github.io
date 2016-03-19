@@ -1,0 +1,5 @@
+TODO:
+
+Create object for the sun and moon to revolve around
+add a starry skybox
+Add variable transparency to the skybox so that the starry skybox can be seen at night
