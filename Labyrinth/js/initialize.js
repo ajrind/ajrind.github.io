@@ -63,8 +63,8 @@ function init()
 	scene.add(floor);
 	
 	// SKYBOX/FOG
-	var skyBoxGeometry = new THREE.CubeGeometry( 500, 500, 500 );
-	//var skyBoxGeometry = new THREE.SphereGeometry( 1000, 32, 16 ); 
+	//var skyBoxGeometry = new THREE.CubeGeometry( 500, 500, 500 );
+	var skyBoxGeometry = new THREE.SphereGeometry( 1000, 32, 16 ); 
 	var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0x9999ff, side: THREE.BackSide } );
 	skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
 	
@@ -120,4 +120,16 @@ function init()
 	scene.add( MovingCube );	
 
 	initColorChange();
+
+
+
+
+	var teapotMaterial = new THREE.MeshBasicMaterial( { color: 0x999900 } );
+	var teapotSize = 10;
+	var tess = 15;
+	var teapotGeometry = new THREE.TeapotBufferGeometry( teapotSize, tess, true, true, true, true, true);
+	var teapot = new THREE.Mesh(teapotGeometry, teapotMaterial);
+	teapot.position.set(0,100,0)
+	scene.add( teapot );
+	console.log("teapot added!")
 }

@@ -4,9 +4,9 @@
  * day and night.
  ****************************************************/
 var colors;
-var hourLength;	// in ms
-var totalHours; // number of colors in colors
-var currentHour // hour of the day on which to start
+var hourLength;	 // in ms
+var totalHours;  // number of colors in colors
+var currentHour; // hour of the day on which to start
 var nextHour;
 var timeElapsed = 0;
 var currentR;
@@ -21,7 +21,7 @@ var deltaB;
 
 function initColorChange(materialReference)
 {
-		console.log(skyBox);
+	console.log(skyBox);
 	colors = [{r: 177, g: 1,   b: 67},   // 6 AM
 			  {r: 40,  g: 10,  b: 214},  // 7 AM
 			  {r: 5,   g: 102, b: 173},  // 8 AM
@@ -32,8 +32,21 @@ function initColorChange(materialReference)
 			  {r: 102, g: 182, b: 225},  // 1 PM
 			  {r: 56,  g: 160, b: 216},  // 2 PM
 			  {r: 5,   g: 102, b: 173},  // 3 PM
-			  {r: 244, g: 102, b: 17 },  // 4 PM
-			  {r: 240, g: 4,   b: 11 }]; // 5 PM
+			  {r: 211, g: 85,  b: 10 },  // 4 PM
+			  {r: 218, g: 3,   b: 9  },  // 5 PM
+			  {r: 83,  g: 1,   b: 143},  // 6 PM
+			  {r: 53,  g: 2,   b: 104},  // 7 PM
+			  {r: 46,  g: 2,   b: 174},  // 8 PM
+			  {r: 32,  g: 1,   b: 124},  // 9 PM
+			  {r: 23,  g: 1,   b: 88 },  // 10 PM
+			  {r: 13,  g: 0,   b: 51 }, // 11 PM
+			  {r: 13,  g: 0,   b: 51 }, // 12 AM Midnight
+			  {r: 13,  g: 0,   b: 51 }, // 1 AM
+  			  {r: 13,  g: 0,   b: 51 },  // 2 AM
+  			  {r: 13,  g: 0,   b: 51 },  // 3 AM
+			  {r: 23,  g: 0,   b: 94 },  // 4 AM
+			  {r: 83,  g: 1,   b: 143}]; // 5 AM
+
 	/*
 	colors = [{r: 0, g: 0,   b: 0},   // 6 AM
 			  {r: 0,  g: 0,  b: 255}];  // 7 AM
@@ -53,7 +66,7 @@ function animateColor()
 {
 	if (timeElapsed % hourLength === 0) // reached the end of the hour: set up the vars for the next hour
 	{
-		setColor(colors[currentHour].r, colors[currentHour].g, colors[currentHour].b);
+		//setColor(colors[currentHour].r, colors[currentHour].g, colors[currentHour].b);
 		currentHour = nextHour;
 		nextHour = calcNextHour();
 		
@@ -89,7 +102,7 @@ function animateColor()
 		}
 	}
 
-	else if (0)// animate the color change
+	else // animate the color change
 	{ 
 		// linear fade
 		currentR += deltaR;
@@ -112,6 +125,6 @@ function setColor(r,g,b)
 	g = Math.floor(g);
 	b = Math.floor(b);
 	console.log("Current color is: ", skyBox.material.color.getHexString())
-	console.log("Setting Color to: ", r, ", ", g, ", ", b)
-	skyBox.material.color.setRGB( r, g, b);
+	console.log("Setting Color to: ", r/255, ", ", g/255, ", ", b/255)
+	skyBox.material.color.setRGB( r/255, g/255, b/255);
 }

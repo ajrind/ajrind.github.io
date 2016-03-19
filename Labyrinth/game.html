@@ -22,6 +22,7 @@
 <script src="js/daySimulation.js"></script>
 <script src="js/colorChange.js"></script>
 <script src="js/initialize.js"></script>
+<script src="js/TeapotBufferGeometry.js"></script>
 
 <!-- jQuery code to display an information button and box when clicked. -->
 <script src="js/jquery-1.9.1.js"></script>
@@ -62,16 +63,16 @@ init();
 animate();
 
 // FUNCTIONS 		
-function animate(time) 
+function animate(time)
 {
     requestAnimationFrame( animate );
-	render(time);		
+	render(time);	
 	update();
 }
 
 function update()
 {
-	//animateColor();
+	animateColor();
 	var oldX = MovingCube.position.x;
 	var oldY = MovingCube.position.y;
 	var oldZ = MovingCube.position.z;
