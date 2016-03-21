@@ -12,6 +12,7 @@ var minimap;
 var xDim;
 var zDim;
 var wallMap;
+var teapot;
 initWallVars();
 
 function initWallVars()
@@ -41,6 +42,11 @@ function getFinishCoords()
 function getMinimap()
 {
 	return minimap;
+}
+
+function getTeapotReference()
+{
+	return teapot;
 }
 
 function buildLabyrinth(pwallMap, pxDim, pzDim)
@@ -96,13 +102,27 @@ function buildLabyrinth(pwallMap, pxDim, pzDim)
         		case '11': // cross w/out top arm
         			wallMesh = createWall(11)
         			break;
-        		case 's': // starting square
+        		case 'S': // starting square
+        			// set coordinates for the start
         			startCoords.x = xLocation;
         			startCoords.z = zLocation;
         			break;
-        		case 'f': // finish square
+        		case 'F': // finish square
+        			// set coordinates for the finish
         			finishCoords.x = xLocation;
         			finishCoords.z = zLocation;
+	    			
+	    			// add the golden teapot!
+	    			var teapotMaterial = new THREE.MeshPhongMaterial( { color: 0xA07005 } );
+					teapotMaterial.shininess = 400;
+					var teapotSize = 10;
+					var tess = 15;
+					var teapotGeometry = new THREE.TeapotBufferGeometry( teapotSize, tess, true, true, true, true, true);
+					teapot = new THREE.Mesh(teapotGeometry, teapotMaterial);
+					teapot.rotation.x = Math.PI / 8;
+					wallMesh = teapot;
+					console.log("teapot added!")
+
         			break;
         		default:
         			console.log("ERROR: ", wallMap[zCoord][xCoord], " is not a valid wall type!")
@@ -111,11 +131,11 @@ function buildLabyrinth(pwallMap, pxDim, pzDim)
         	if (wallMesh)
         	{
 	        	wallMesh.position.x = xLocation;
-	        	wallMesh.position.y = yLen/2
+	        	wallMesh.position.y = yLen/2;
 	        	wallMesh.position.z = zLocation;
 	        	wallMesh.castShadow = true;
 	        	Labyrinth.add( wallMesh );
-   	        	console.log(wallMesh);
+   	        	//console.log(wallMesh);
 
         	}
         	xLocation += xLen
@@ -123,6 +143,8 @@ function buildLabyrinth(pwallMap, pxDim, pzDim)
     	zLocation += zLen
     }
     scene.add(Labyrinth);
+    console.log("Teapot at:")
+    console.log(teapot.position)
 }
 
 // I decided to just create the wall segments on an as-needed basis (instead of at the top of function)

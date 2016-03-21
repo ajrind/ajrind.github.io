@@ -12,40 +12,43 @@ var timeElapsed = 0;
 var currentR;
 var currentG;
 var currentB;
+var currentO;
 var nextR;
 var nextG;
 var nextB;
+var nextO;
 var deltaR;
 var deltaG;
 var deltaB;
+var deltaO;
+var mesh;
 
-function initColorChange(materialReference)
+function initColorChange(meshReference)
 {
-	console.log(skyBox);
-	colors = [{r: 177, g: 1,   b: 67},   // 6 AM
-			  {r: 40,  g: 10,  b: 214},  // 7 AM
-			  {r: 5,   g: 102, b: 173},  // 8 AM
-			  {r: 5,   g: 102, b: 173},  // 9 AM
-			  {r: 56,  g: 160, b: 216},  // 10 AM
-			  {r: 102, g: 182, b: 225},  // 11 AM
-			  {r: 133, g: 197, b: 231},  // 12 PM Noon
-			  {r: 102, g: 182, b: 225},  // 1 PM
-			  {r: 56,  g: 160, b: 216},  // 2 PM
-			  {r: 5,   g: 102, b: 173},  // 3 PM
-			  {r: 211, g: 85,  b: 10 },  // 4 PM
-			  {r: 218, g: 3,   b: 9  },  // 5 PM
-			  {r: 83,  g: 1,   b: 143},  // 6 PM
-			  {r: 53,  g: 2,   b: 104},  // 7 PM
-			  {r: 46,  g: 2,   b: 174},  // 8 PM
-			  {r: 32,  g: 1,   b: 124},  // 9 PM
-			  {r: 23,  g: 1,   b: 88 },  // 10 PM
-			  {r: 13,  g: 0,   b: 51 }, // 11 PM
-			  {r: 13,  g: 0,   b: 51 }, // 12 AM Midnight
-			  {r: 13,  g: 0,   b: 51 }, // 1 AM
-  			  {r: 13,  g: 0,   b: 51 },  // 2 AM
-  			  {r: 13,  g: 0,   b: 51 },  // 3 AM
-			  {r: 23,  g: 0,   b: 94 },  // 4 AM
-			  {r: 83,  g: 1,   b: 143}]; // 5 AM
+	colors = [{r: 1,   g: 1,   b: 3  , o:0  },  // 12 AM Midnight
+			  {r: 1,   g: 1,   b: 3  , o:0  },  // 1 AM
+  			  {r: 1,   g: 1,   b: 3  , o:0  },  // 2 AM
+  			  {r: 1,   g: 1,   b: 3  , o:0  },  // 3 AM
+			  {r: 1,   g: 1,   b: 3  , o:0  },  // 4 AM
+			  {r: 2,   g: 10,  b: 19 , o:10 },  // 5 AM
+			  {r: 20,  g: 30,  b: 70 , o:30 },  // 6 AM
+			  {r: 50,  g: 90,  b: 165, o:95 },  // 7 AM
+			  {r: 100, g: 102, b: 173, o:100},  // 8 AM
+			  {r: 120, g: 160, b: 216, o:100},  // 9 AM
+			  {r: 133, g: 197, b: 231, o:100},  // 10 AM
+			  {r: 133, g: 197, b: 231, o:100},  // 11 AM
+			  {r: 133, g: 197, b: 231, o:100},  // 12 PM Noon
+			  {r: 133, g: 197, b: 231, o:100},  // 1 PM
+			  {r: 133, g: 197, b: 231, o:100},  // 2 PM
+			  {r: 133, g: 197, b: 231, o:100},  // 3 PM
+			  {r: 120, g: 160, b: 216, o:100},  // 4 PM
+			  {r: 100, g: 102, b: 173, o:95 },  // 5 PM
+			  {r: 50,  g: 90,  b: 165, o:50 },  // 6 PM
+			  {r: 0,   g: 0,   b: 3  , o:0  },  // 7 PM
+			  {r: 0,   g: 0,   b: 3  , o:0  },  // 8 PM
+			  {r: 0,   g: 0,   b: 3  , o:0  },  // 9 PM
+			  {r: 0,   g: 0,   b: 3  , o:0  },  // 10 PM
+			  {r: 0,   g: 0,   b: 3  , o:0  }]; // 11 PM 
 
 	/*
 	colors = [{r: 0, g: 0,   b: 0},   // 6 AM
@@ -53,11 +56,11 @@ function initColorChange(materialReference)
 			  */
 	hourLength = 100;
 	totalHours = colors.length;
-	currentHour = 6;
+	currentHour = 0;
 	nextHour = calcNextHour();
-	material = materialReference;
-	console.log("totalHours = ", totalHours);
-	console.log(colors);
+	mesh = meshReference;
+	console.log(mesh);
+	mesh.material.transparent = true;	
 }
 
 var logged = false
@@ -73,15 +76,19 @@ function animateColor()
 		currentR = colors[currentHour].r * 100;
 		currentG = colors[currentHour].g * 100;
 		currentB = colors[currentHour].b * 100;
+		currentO = colors[currentHour].o * 100;
 
 		nextR = colors[nextHour].r * 100;
 		nextG = colors[nextHour].g * 100;
 		nextB = colors[nextHour].b * 100;
+		nextO = colors[nextHour].o * 100;
 
 		deltaR = (nextR - currentR)/hourLength;
 		deltaG = (nextG - currentG)/hourLength;
 		deltaB = (nextB - currentB)/hourLength;
-		
+		deltaO = (nextO - currentO)/hourLength;
+		console.log("currentHour = ", currentHour);
+		console.log(mesh);
 		if (!logged)
 		{
 			//console.log("currentHour = ", currentHour);
@@ -108,7 +115,8 @@ function animateColor()
 		currentR += deltaR;
 		currentG += deltaG;
 		currentB += deltaB;
-		setColor(currentR/100, currentG/100, currentB/100);
+		currentO += deltaO;
+		setColor(currentR/100, currentG/100, currentB/100, currentO/100);
 	}
 
 	timeElapsed++;
@@ -119,12 +127,14 @@ function calcNextHour()
 	return (currentHour + 1) % totalHours;
 }
 
-function setColor(r,g,b)
+function setColor(r,g,b,o)
 {
 	r = Math.floor(r);
 	g = Math.floor(g);
 	b = Math.floor(b);
-	console.log("Current color is: ", skyBox.material.color.getHexString())
-	console.log("Setting Color to: ", r/255, ", ", g/255, ", ", b/255)
-	skyBox.material.color.setRGB( r/255, g/255, b/255);
+	o = Math.floor(o);
+	//console.log("Current color is: ", skyBox.material.color.getHexString())
+	//console.log("Setting Color to: ", r/255, ", ", g/255, ", ", b/255)
+	mesh.material.color.setRGB( r/255, g/255, b/255);
+	mesh.material.opacity = o;
 }
