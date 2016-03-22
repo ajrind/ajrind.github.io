@@ -54,9 +54,9 @@ function initColorChange(meshReference)
 	colors = [{r: 0, g: 0,   b: 0},   // 6 AM
 			  {r: 0,  g: 0,  b: 255}];  // 7 AM
 			  */
-	hourLength = 100;
+	hourLength = 200;
 	totalHours = colors.length;
-	currentHour = 0;
+	currentHour = 4;
 	nextHour = calcNextHour();
 	mesh = meshReference;
 	console.log(mesh);
