@@ -17,7 +17,7 @@ initWallVars();
 
 function initWallVars()
 {
-	xLen = zLen = 40;    // the length/width of a square
+	xLen = zLen = 40;    // the length/width of a squaresce
 	yLen = 40;           // wall height
 	wallWidthRatio = 1;  // Must be between 0 and 1. Change this to 1 to create "cube" walls.
  	startCoords = {x:0, z:0};
@@ -143,6 +143,7 @@ function buildLabyrinth(pwallMap, pxDim, pzDim)
     	zLocation += zLen
     }
     scene.add(Labyrinth);
+    console.log(Labyrinth);
     console.log("Teapot at:")
     console.log(teapot.position)
 }
