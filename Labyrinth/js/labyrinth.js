@@ -6,7 +6,7 @@ var LabyrinthBuilder = function (wallMap) {
 	this.wallMap = wallMap;
 	
 	this.xLen = this.zLen = 40;  // the length/width of a square
-	this.yLen = 40;                 // height of the wall
+	this.yLen = 40;              // height of the wall
 	this.startCoords  = {x:0, y:25, z:0};
 	this.finishCoords = {x:0, y:25, z:0};
 	this.minimap;

@@ -142,5 +142,5 @@ function init()
 	console.log(MovingCube);
 	//scene.add( minimap );
 
-	initColorChange(skyBox);
+	skyAnimator = new SkyAnimator(skyBox, scene);
 }
