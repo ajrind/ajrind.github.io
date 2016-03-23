@@ -21,7 +21,14 @@ function getMovement()
 
 	if ( keyboard.pressed("P") )
 	{
-		console.log(camera.position)
+		//console.log(camera.position);
+		var teapotTexture = new THREE.ImageUtils.loadTexture( 'textures/goldGlitter.png' );
+		teapotTexture.wrapS = teapotTexture.wrapT = THREE.RepeatWrapping;
+		teapotTexture.repeat.set( 1, 1);
+		var teapotMaterial = new THREE.MeshPhongMaterial( { map: teapotTexture } );
+		console.log("Attempting to change material to:");
+		console.log(teapotMaterial);
+		lb.setWallTexture(teapotMaterial);
 	}
 
 	// rotate left/right

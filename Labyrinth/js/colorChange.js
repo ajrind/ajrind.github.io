@@ -27,13 +27,15 @@ var SkyAnimator = function (skyboxReference, scene)
 				   {r: 0,   g: 0,   b: 3  , o:0  },  // 9 PM
 				   {r: 0,   g: 0,   b: 3  , o:0  },  // 10 PM
 				   {r: 0,   g: 0,   b: 3  , o:0  }]; // 11 PM 
-	this.hourLength = 300;
 	this.totalHours = this.colors.length;
-	this.skyRotationSpeed = Math.PI/(this.totalHours*this.hourLength*2);
-	this.sunRevolutionSpeed = Math.PI/(this.totalHours*this.hourLength);
+
+	this.hourLength = 300;
 	this.currentHour = 14;
 	this.nextHour = (this.currentHour + 1) % this.totalHours;
 	this.timeElapsed = 0;
+
+	this.skyRotationSpeed = Math.PI/(this.totalHours*this.hourLength*2);
+	this.sunRevolutionSpeed = Math.PI/(this.totalHours*this.hourLength);
 	
 
 	// Create the starbox
@@ -98,12 +100,12 @@ var SkyAnimator = function (skyboxReference, scene)
 		
 		this.starBox.rotation.x += this.skyRotationSpeed;
 		this.timeElapsed++;
-	}
+	};
 
 	this.calcNextHour = function()
 	{
 		return (this.currentHour + 1) % this.totalHours;
-	}
+	};
 
 	this.setColor = function(r,g,b,o)
 	{
@@ -112,5 +114,5 @@ var SkyAnimator = function (skyboxReference, scene)
 		b = Math.floor(b);
 		this.mesh.material.color.setRGB( r/255, g/255, b/255);
 		this.mesh.material.opacity = o;
-	}
+	};
 };

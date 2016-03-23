@@ -5,29 +5,37 @@
 var LabyrinthBuilder = function (wallMap) {
 	this.wallMap = wallMap;
 	
-	this.xLen = this.zLen = 40;  // the length/width of a square
-	this.yLen = 40;              // height of the wall
+	this.xLen = this.zLen = 40; // the length/width of a square
+	this.yLen = 40;             // height of the wall
 	this.startCoords  = {x:0, y:25, z:0};
 	this.finishCoords = {x:0, y:25, z:0};
 	this.minimap;
 	this.teapot;
 	this.labyrinth;
-	this.wallWidth = 1;           // The width of the labyrinth walls
+	this.wallWidth = 1; // The width of the labyrinth walls
 
 	// set up the wall material
-	var wallTexture = new THREE.ImageUtils.loadTexture( 'textures/stoneWall1.png' );
+	wallTexture = new THREE.ImageUtils.loadTexture( 'textures/stoneWall1.png' );
 	wallTexture.wrapS = wallTexture.wrapT = THREE.RepeatWrapping;
 	wallTexture.repeat.set( 1, 1);
 	this.wallMaterial = new THREE.MeshLambertMaterial( { map: wallTexture } );
 
+	this.setWallTexture = function(mat)
+	{
+		console.log("called setWallTexture!")
+		if (wallTexture)
+		{
+			this.changeMaterial(this.labyrinth, mat);
+		}
+
+		else
+		{
+			console.error("Unable to set texture: texture is undefined.")
+		}
+	};
+
 	this.build = function() 
 	{
-		// set up the wall material
-		var wallTexture = new THREE.ImageUtils.loadTexture( 'textures/stoneWall1.png' );
-		wallTexture.wrapS = wallTexture.wrapT = THREE.RepeatWrapping;
-		wallTexture.repeat.set( 1, 1);
-		var wallMaterial = new THREE.MeshLambertMaterial( { map: wallTexture } );
-
 		// the starting locations are calculated based on the size of the map
 		this.labyrinth = new THREE.Object3D();
 		var xDim = this.wallMap[0].length;
@@ -89,17 +97,19 @@ var LabyrinthBuilder = function (wallMap) {
 	        			this.finishCoords.x = xLocation;
 	        			this.finishCoords.z = zLocation;
 		    			
-		    			// add the golden teapot!
-		    			var teapotMaterial = new THREE.MeshPhongMaterial( { color: 0xA07005 } );
-						teapotMaterial.shininess = 400;
+		    			// add the golden teapot
+		    			var teapotTexture = new THREE.ImageUtils.loadTexture( 'textures/goldGlitter.png' );
+						teapotTexture.wrapS = teapotTexture.wrapT = THREE.RepeatWrapping;
+						teapotTexture.repeat.set( 1, 1);
+		    			var teapotMaterial = new THREE.MeshPhongMaterial( { map: teapotTexture } );
+						//teapotMaterial.shininess = 100;
+
 						var teapotSize = 7;
 						var tess = 15;
 						var teapotGeometry = new THREE.TeapotBufferGeometry( teapotSize, tess, true, true, true, true, true);
 						this.teapot = new THREE.Mesh(teapotGeometry, teapotMaterial);
 						this.teapot.rotation.x = Math.PI / 8;
-						wallMesh = this.teapot;
-						//console.log("teapot added!")
-
+						wallMesh = this.teapot;						
 	        			break;
 	        		default:
 	        			console.log("ERROR: ", this.wallMap[zCoord][xCoord], " is not a valid wall type!")
@@ -114,7 +124,6 @@ var LabyrinthBuilder = function (wallMap) {
 		        	wallMesh.castShadow = true;
 		        	this.labyrinth.add( wallMesh );
 	   	        	//console.log("added wallMesh!");
-
 	        	}
 	        	xLocation += this.xLen
 	        	//console.log("xCoord = ", xCoord)
@@ -361,7 +370,7 @@ var LabyrinthBuilder = function (wallMap) {
 
 	this.changeMaterial = function(mesh, newMaterial)
 	{
-		if (mesh.geometry) // an singular mesh, not an aggregate type
+		if (mesh.geometry) // a singular mesh, not an aggregate type (singular meshs have a geometry attribute.)
 		{
 			mesh.material = newMaterial;
 		}

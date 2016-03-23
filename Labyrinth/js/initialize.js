@@ -100,7 +100,7 @@ function init()
 				  ['1', '0', '2', '4', '0', '1', '0', '1', '0', '2', '4', '0',  '0', '0', '1'],
 				  ['1', '0', '0', '0', '0', '1', 'S', '1', '0', '0', '0', '0',  '1', '0', '1'],
 				  ['3', '2', '2', '2', '2', '9', '2', '9', '2', '2', '2', '2',  '9', '2', '4']];
-	var lb = new LabyrinthBuilder(testMap);
+	lb = new LabyrinthBuilder(testMap);
 	lb.build();
 	scene.add(lb.labyrinth);
 	startX = lb.startCoords.x;
