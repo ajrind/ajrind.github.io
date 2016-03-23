@@ -1,18 +1,18 @@
-// TODO: Change this into a class instead of functions / global variables
-
-// global wall variables
+/**
+ * @author Andrew Rindfleisch / http://ajrind.github.io
+ */
 
 var LabyrinthBuilder = function (wallMap) {
 	this.wallMap = wallMap;
 	
-	this.xLen = this.zLen = 40;  // the length/this.wallWidth of a square
+	this.xLen = this.zLen = 40;  // the length/width of a square
 	this.yLen = 40;                 // height of the wall
-	this.startCoords  = {x:0, z:0};
-	this.finishCoords = {x:0, z:0};
+	this.startCoords  = {x:0, y:25, z:0};
+	this.finishCoords = {x:0, y:25, z:0};
 	this.minimap;
 	this.teapot;
 	this.labyrinth;
-	this.wallWidth = 1;           // The this.wallWidth of the labyrinth walls
+	this.wallWidth = 1;           // The width of the labyrinth walls
 
 	// set up the wall material
 	var wallTexture = new THREE.ImageUtils.loadTexture( 'textures/stoneWall1.png' );
@@ -73,7 +73,7 @@ var LabyrinthBuilder = function (wallMap) {
 	        		case '9': // cross w/out bottom arm
 	        			wallMesh = this.createWall(9);
 	        			break;
-	        		case '10': // cross w/out left arm
+					case '10': // cross w/out left arm
 	        			wallMesh = this.createWall(10);
 	        			break;
 	        		case '11': // cross w/out top arm
@@ -92,7 +92,7 @@ var LabyrinthBuilder = function (wallMap) {
 		    			// add the golden teapot!
 		    			var teapotMaterial = new THREE.MeshPhongMaterial( { color: 0xA07005 } );
 						teapotMaterial.shininess = 400;
-						var teapotSize = 10;
+						var teapotSize = 7;
 						var tess = 15;
 						var teapotGeometry = new THREE.TeapotBufferGeometry( teapotSize, tess, true, true, true, true, true);
 						this.teapot = new THREE.Mesh(teapotGeometry, teapotMaterial);
@@ -121,6 +121,11 @@ var LabyrinthBuilder = function (wallMap) {
 	    	}
 	    	zLocation += this.zLen
 	    }	    
+	    console.log("Labyrinth:");
+	    this.labyrinth.castShadow = true;
+	    this.labyrinth.receiveShadow = true;
+	    console.log(this.labyrinth);
+	    this.createMinimap();
 	}
 
 	// I decided to just create the wall segments on an as-needed basis (instead of at the top of function)
@@ -131,7 +136,6 @@ var LabyrinthBuilder = function (wallMap) {
 	this.createWall = function(wallNumber)
 	{
 		var wallMesh;
-		//return (new THREE.Mesh(new THREE.CubeGeometry(this.wallWidth*this.xLen, this.yLen, this.zLen), this.wallMaterial));			
 		switch(wallNumber)
 		{
 			case 1: // vertical wall
@@ -280,7 +284,6 @@ var LabyrinthBuilder = function (wallMap) {
 
 	/*
 		// TEST CODE: poles added to help see the dimensions of the square
-		// WHEN YOU START, YOU ARE LOOKING DOWN
 		// add poles to the wall to show where the points are of the square
 		poleGeometry = new THREE.CylinderGeometry( 1, 1, this.yLen*2, 4 );
 		poleMaterial = new THREE.MeshBasicMaterial( {color: 0xffff00} );
@@ -324,5 +327,53 @@ var LabyrinthBuilder = function (wallMap) {
 		*/
 
 		return wallMesh;
-	}
+	};
+
+	this.createMinimap = function()
+	{
+		var xyScale = 0.0002;
+		// the map is a clone of the original maze
+		this.minimap = this.labyrinth.clone();
+		this.minimap.castShadow = false;
+		this.minimap.receiveShadow = false;
+
+		// scale the map (shrink and flatten it)
+		this.minimap.scale.set(xyScale, 0.00001, xyScale);
+
+		// make it face the camera
+		this.minimap.rotation.x = Math.PI/2;
+		this.minimap.name = "minimap";
+		//this.minimap.rotation.z = Math.PI/1200;
+		
+		//console.log("original minimap:");
+		//console.log(this.minimap);
+		//scene.add(this.minimap);
+
+		// change the color of the minimap
+		newMaterial = new THREE.MeshBasicMaterial( {color: 0x000000} );
+		console.log(this.minimap)
+		for (var i = 0; i < this.minimap.children.length; i++)
+		{
+			this.changeMaterial(this.minimap.children[i], newMaterial);
+		}
+
+	};
+
+	this.changeMaterial = function(mesh, newMaterial)
+	{
+		if (mesh.geometry) // an singular mesh, not an aggregate type
+		{
+			mesh.material = newMaterial;
+		}
+
+		else // recurse on each child mesh
+		{
+			for (var i = 0; i < mesh.children.length; i++)
+			{
+				this.changeMaterial(mesh.children[i], newMaterial);
+			}
+		}
+
+		return;
+	};
 };

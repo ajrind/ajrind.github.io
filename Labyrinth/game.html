@@ -12,7 +12,6 @@
 <script src="js/three.min.js"></script>
 <script src="js/Detector.js"></script>
 <script src="js/Stats.js"></script>
-<script src="js/OrbitControls.js"></script>
 <script src="js/THREEx.KeyboardState.js"></script>
 <script src="js/THREEx.FullScreen.js"></script>
 <script src="js/THREEx.WindowResize.js"></script>
@@ -59,11 +58,13 @@ var keyboard = new THREEx.KeyboardState();
 var clock = new THREE.Clock();
 var skyBox;
 var MovingCube;
+var minimap;
+var teapot;
 
 init();
 animate();
 
-// FUNCTIONS 		
+// FUNCTIONS
 function animate(time)
 {
     requestAnimationFrame( animate );
@@ -74,20 +75,14 @@ function animate(time)
 function update()
 {
 	animateSky();
+	teapot.rotation.x += Math.PI/400;
+	teapot.rotation.y += Math.PI/300;
+	teapot.rotation.z += Math.PI/200;
+
 	var oldX = MovingCube.position.x;
 	var oldY = MovingCube.position.y;
 	var oldZ = MovingCube.position.z;
 	getMovement();
-	/*
-	var collision = undefined;
-	collision = checkCollision(MovingCube.position)	
-	if (collision)
-	{
-		MovingCube.position.x = oldX;
-		MovingCube.position.y = oldY;
-		MovingCube.position.z = oldZ;
-	}
-	*/
 	camera.position.x = MovingCube.position.x;
 	camera.position.y = MovingCube.position.y;
 	camera.position.z = MovingCube.position.z;

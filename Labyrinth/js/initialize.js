@@ -93,12 +93,18 @@ function init()
 				  ['1', '0', '0', '1', '0', '1', '0', '6', '2', '2', '5', '0',  '1', '0', '1'],
 				  ['1', '0', '0', '1', '0', '1', '0', '1', '0', '0', '1', '0',  '1', '0', '1'],
 				  ['1', '0', '2', '4', '0', '1', '0', '1', '0', '2', '4', '0',  '0', '0', '1'],
-				  ['1', '0', '0', '0', '0', '1', '0', '1', '0', '0', '0', '0',  '1', '0', '1'],
+				  ['1', '0', '0', '0', '0', '1', 'S', '1', '0', '0', '0', '0',  '1', '0', '1'],
 				  ['3', '2', '2', '2', '2', '9', '2', '9', '2', '2', '2', '2',  '9', '2', '4']];
 	var lb = new LabyrinthBuilder(testMap);
 	lb.build();
 	scene.add(lb.labyrinth);
-	
+	startX = lb.startCoords.x;
+	startY = lb.startCoords.y;
+	startZ = lb.startCoords.z;
+	teapot = lb.teapot;
+	console.log("teapot:");
+	console.log(teapot);
+
 	////////////
 	// CUSTOM //
 	////////////
@@ -107,15 +113,29 @@ function init()
 	var hitboxMaterial = new THREE.MeshBasicMaterial( { color: 0xff88ff, opacity: 0, transparent: true } );
 	var MovingCubeGeom = new THREE.CubeGeometry( hitboxDim, hitboxDim, hitboxDim);
 	hitboxCube = new THREE.Mesh( MovingCubeGeom, hitboxMaterial );
-	//var PointerCube = new THREE.Mesh(new THREE.CubeGeometry( 1,1,1), hitboxMaterial);
-	//PointerCube.position.z = -hitboxDim/2;
-
 	MovingCube.add(hitboxCube);
-	//MovingCube.add(PointerCube);
+
+	/*
+	var PointerCube = lb.minimap.clone();
+	PointerCube.position.x =  .9
+	PointerCube.position.y = -0.4
+	PointerCube.position.z = -hitboxDim/1.5;
+	MovingCube.add(PointerCube);
+	*/
+
+	var minimap = lb.minimap.clone();
+	MovingCube.add(minimap);
+	minimap.position.x = 0.75;
+	minimap.position.y = -0.3;
+	minimap.position.z = -1;
 	
-	// TODO: Place the cube/camera at the starting position, looking into the labyrinth
-	MovingCube.position.set(0, 25, 0); 
-	scene.add( MovingCube );	
+	
+	// Place the cube/camera at the starting position, looking into the labyrinth
+	MovingCube.position.set(startX, startY, startZ);
+	scene.add( MovingCube );
+	console.log("MovingCube");
+	console.log(MovingCube);
+	//scene.add( minimap );
 
 	initColorChange(skyBox);
 }

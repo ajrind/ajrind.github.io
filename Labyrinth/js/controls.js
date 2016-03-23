@@ -19,6 +19,11 @@ function getMovement()
 	if ( keyboard.pressed("N") )
 		MovingCube.translateY( -moveDistance);
 
+	if ( keyboard.pressed("P") )
+	{
+		console.log(camera.position)
+	}
+
 	// rotate left/right
 	var rotation_matrix = new THREE.Matrix4().identity();
 	if ( keyboard.pressed("A") )
@@ -47,7 +52,7 @@ function getMovement()
 	// TODO: Menu toggle button
 	if ( keyboard.pressed("Z") )
 	{
-		MovingCube.position.set(0,25,0);
+		MovingCube.position.set(startX,25,startZ);
 		MovingCube.rotation.set(0,0,0);
 		camera.rotation.set(0,0,0);
 	}

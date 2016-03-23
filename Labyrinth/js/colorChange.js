@@ -1,8 +1,3 @@
-/****************************************************
- * JavaScript to change the color of a mesh over
- * time. Used in this case to simulate the passing of 
- * day and night.
- ****************************************************/
 var colors;
 var starBox;
 var hourLength;	 // in ms
@@ -53,17 +48,14 @@ function initColorChange(meshReference)
 			  {r: 0,   g: 0,   b: 3  , o:0  },  // 10 PM
 			  {r: 0,   g: 0,   b: 3  , o:0  }]; // 11 PM 
 
-	/*
-	colors = [{r: 0, g: 0,   b: 0},   // 6 AM
-			  {r: 0,  g: 0,  b: 255}];  // 7 AM
-			  */
 	hourLength = 300;
 	rotationSpeed = Math.PI/(75*hourLength);
 	totalHours = colors.length;
-	currentHour = 20;
+	currentHour = 14;
 	nextHour = calcNextHour();
 	mesh = meshReference;
-	//console.log(mesh);
+	
+	// initialize the opacity level
 	mesh.material.transparent = true;	
 	mesh.material.opacity = colors[currentHour].o;
 
@@ -97,7 +89,6 @@ function animateSky()
 {
 	if (timeElapsed % hourLength === 0) // reached the end of the hour: set up the vars for the next hour
 	{
-		//setColor(colors[currentHour].r, colors[currentHour].g, colors[currentHour].b);
 		currentHour = nextHour;
 		nextHour = calcNextHour();
 		
