@@ -75,17 +75,20 @@ function animate(time)
 function update()
 {
 	animateSky();
-	teapot.rotation.x += Math.PI/400;
-	teapot.rotation.y += Math.PI/300;
-	teapot.rotation.z += Math.PI/200;
+	teapot.rotation.x += Math.PI/300;
+	teapot.rotation.y += Math.PI/200;
+	teapot.rotation.z += Math.PI/100;
 
 	var oldX = MovingCube.position.x;
 	var oldY = MovingCube.position.y;
 	var oldZ = MovingCube.position.z;
+
 	getMovement();
+	
 	camera.position.x = MovingCube.position.x;
 	camera.position.y = MovingCube.position.y;
 	camera.position.z = MovingCube.position.z;
+	
 	stats.update();
 }
 
