@@ -19,9 +19,10 @@ function getMovement()
 	if ( keyboard.pressed("N") )
 		MovingCube.translateY( -moveDistance);
 
-	if ( keyboard.pressed("P") )
+	if ( keyboard.pressed("P") ) // test 
 	{
 		//console.log(camera.position);
+		var paused = true;
 		var teapotTexture = new THREE.ImageUtils.loadTexture( 'textures/goldGlitter.png' );
 		teapotTexture.wrapS = teapotTexture.wrapT = THREE.RepeatWrapping;
 		teapotTexture.repeat.set( 1, 1);
@@ -29,6 +30,7 @@ function getMovement()
 		console.log("Attempting to change material to:");
 		console.log(teapotMaterial);
 		lb.setWallTexture(teapotMaterial);
+		minimap.changeMapMaterial(new THREE.MeshBasicMaterial( {color: 0xcc2222} ));
 	}
 
 	// rotate left/right

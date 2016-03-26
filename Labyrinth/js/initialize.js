@@ -128,19 +128,19 @@ function init()
 	MovingCube.add(PointerCube);
 	*/
 
-	var minimap = lb.minimap.clone();
-	MovingCube.add(minimap);
-	minimap.position.x = 0.75;
-	minimap.position.y = -0.3;
-	minimap.position.z = -1;
-	
-	
+
 	// Place the cube/camera at the starting position, looking into the labyrinth
 	MovingCube.position.set(startX, startY, startZ);
 	scene.add( MovingCube );
-	console.log("MovingCube");
-	console.log(MovingCube);
-	//scene.add( minimap );
 
+	// Create the minimap
+	minimap = new Minimap(lb.labyrinth, MovingCube, scene);
+	minimap.createMinimap();
+
+	MovingCube.add(minimap.map);
+	minimap.map.position.x = 0.75;
+	minimap.map.position.y = -0.3;
+	minimap.map.position.z = -1;
+	
 	skyAnimator = new SkyAnimator(skyBox, scene);
 }

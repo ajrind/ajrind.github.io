@@ -1,6 +1,6 @@
 TODO:
 
-Convert colorChange.js into a class
 Sun and Moon light sources
 Add clouds to the sky
 Title screen
+Show player position on minimap
