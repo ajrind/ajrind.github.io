@@ -119,12 +119,6 @@ var Minimap = function (walls, playerReference)
 	// private function used in changeMapOpacity and changeMapColor
 	this.changeMaterial = function(mesh, newMaterial)
 	{
-		// don't change this.playerBlip
-		if (mesh === this.playerBlip)
-		{
-			console.log("found player blip!");
-		}
-
 		if (mesh.geometry) // a singular mesh, not an aggregate type (singular meshs have a geometry attribute.)
 		{
 			mesh.material = newMaterial;

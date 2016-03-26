@@ -38,41 +38,54 @@ var SkyAnimator = function (skyboxReference, scene)
 				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8},  // 12 PM Noon
 				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8},  // 1 PM
 				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8},  // 2 PM
-				  {r: 133, g: 197, b: 231, o:1.00, h: 0.7},  // 3 PM
-				  {r: 120, g: 160, b: 216, o:0.90, h: 0.6},  // 4 PM
-				  {r: 100, g: 102, b: 173, o:0.60, h: 0.5},  // 5 PM
-				  {r: 50,  g: 90,  b: 165, o:0.30, h: 0.4},  // 6 PM
-				  {r: 25,  g: 45,  b: 75 , o:0.10, h: 0.3},  // 7 PM
-				  {r: 0,   g: 0,   b: 3  , o:0.05, h: 0.2},  // 8 PM
+				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8},  // 3 PM
+				  {r: 120, g: 160, b: 216, o:0.90, h: 0.7},  // 4 PM
+				  {r: 100, g: 102, b: 173, o:0.70, h: 0.55},  // 5 PM
+				  {r: 50,  g: 90,  b: 165, o:0.40, h: 0.38},  // 6 PM
+				  {r: 25,  g: 45,  b: 75 , o:0.20, h: 0.2},  // 7 PM
+				  {r: 0,   g: 0,   b: 3  , o:0.05, h: 0.12},  // 8 PM
 				  {r: 0,   g: 0,   b: 3  , o:0.00, h: 0.1},  // 9 PM
 				  {r: 0,   g: 0,   b: 3  , o:0.00, h: 0.1},  // 10 PM
 				  {r: 0,   g: 0,   b: 3  , o:0.00, h: 0.1}]; // 11 PM 
 
 	// TIME AND SPEEDS
 	this.hourLength = 300;
-	this.currentHour = 12;
+	this.currentHour = 14;
 	this.totalHours = this.tints.length;
 	this.nextHour = (this.currentHour + 1) % this.totalHours;
 	this.timeElapsed = 0;
 	this.skyRotationSpeed = Math.PI/(this.totalHours*this.hourLength*2);
-	this.sunRevSpeed = Math.PI/(this.totalHours*this.hourLength);
+	this.sunRevSpeed  = Math.PI/(this.totalHours*this.hourLength);
+	this.moonRevSpeed = Math.PI/(this.totalHours*this.hourLength);
 	
-	// LIGHTS
-	this.celestialBodies = new THREE.Object3D();
-	this.sunScalar  = 50;
+	// SUN
+	this.theSun  = new THREE.Object3D(); // the object stays centered at the origin. Think of it like the arm of ferris wheel, connecting from the center to the rim.
+	this.theSun.position = new THREE.Vector3(0,0,0);
+	this.sunOrbitHeight = 150;
+
+	var sunLight = new THREE.DirectionalLight( 0xffffff, 0.9 );
+	sunLight.color.setHSL( 0.1, 1, 0.95 );
+	sunLight.position.set( 0, this.sunOrbitHeight, 0 );
+	sunLight.castShadow = true; 
+	//this.scene.add( sunLight );
+	//this.theSun.add( sunLight );
+	//this.scene.add( this.theSun );
+	
+	console.log("*********************scene*************************")
+	console.log(this.scene);
+	// MOON
+	this.theMoon = new THREE.Object3D();
+	this.theMoon.position = new THREE.Vector3(0,0,0);
+	this.moonOrbitHeight = 1500;
+
 	this.moonScalar = 50;
-	// sun
-	this.theSun = new THREE.DirectionalLight( 0xffffff, 0.8 );
-	this.theSun.color.setHSL( 0.1, 1, 0.95 );
-	this.theSun.position.set( 0, 1.75, 0 );
-	this.theSun.position.multiplyScalar( this.sunScalar );
-	//this.celestialBodies.add( this.theSun );
-	// moon
-	this.theMoon = new THREE.DirectionalLight( 0xcccccc, 0.5 );
-	this.theMoon.color.setHSL( 0.1, 1, 0.95 );
-	this.theMoon.position.set( -1, 1.75, 1 );
-	this.theMoon.position.multiplyScalar( this.moonScalar );
-	//this.celestialBodies.add( this.theMoon );
+	var moonLight = new THREE.DirectionalLight( 0xcccccc, 0.3 );
+	moonLight.color.setHSL( 0.1, 1, 0.95 );
+	moonLight.position.set( 0, -this.moonOrbitHeight, 0 );
+
+	//this.theMoon.add( moonLight );
+	//this.scene.add(theMoon);
+
 	// ambient
 	this.hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
 	this.hemiLight.color.setHSL( 0.6, 1, 0.6 );
@@ -144,8 +157,9 @@ var SkyAnimator = function (skyboxReference, scene)
 			this.setColor(this.currentR, this.currentG, this.currentB, this.currentO, this.currentH);
 		}
 		
-		// rotate the starbox
+		// rotate the starbox and celestial bodies
 		this.starBox.rotation.x += this.skyRotationSpeed;
+		//this.theSun.rotation.x  += this.sunRotationSpeed;
 		this.timeElapsed++;
 	};
 

@@ -3,6 +3,9 @@ TODO:
 Sky Animator:
 	Sun and Moon light sources
 	Add clouds to the sky
-	Use sin function to simulate the change
+	Use sin function to simulate the change instead of hardcoded colors
+		++ Pass in the function to calculate the change! Because JavaScript.
+
 Main:
 	Title screen
+	Animate color of minimap
