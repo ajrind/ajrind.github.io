@@ -32,9 +32,9 @@ var Minimap = function (walls, playerReference)
 	this.xzScale = 0.0002;
 	this.mapColor = 0x000000;
 	this.mapOpacity = 100;
-	this.playerColor = 0xFFFF00;
 	this.player = playerReference;
 	this.playerBlip = null;
+	this.playerBlipColor = 0xFFFF00;
 
 	// Call this function first
 	this.createMinimap = function()
@@ -44,8 +44,6 @@ var Minimap = function (walls, playerReference)
 		this.playerBlip.scale.set(20, 20, 20);
 		this.playerBlip.transparent = false;
 		this.playerBlip.opacity = 100;
-		var newMaterial = new THREE.MeshBasicMaterial( {color: 0xFFFF00, transparent: true, opacity: this.mapOpacity} );
-		this.changeMaterial(this.playerBlip, newMaterial);
 		this.map.add(this.playerBlip);
 		
 		console.log("Player Blip:")
@@ -64,6 +62,8 @@ var Minimap = function (walls, playerReference)
 		// change the color of the minimap
 		this.changeMapColor(this.mapColor);
 		this.changeMapOpacity(this.mapOpacity);
+		var playerBlipMaterial = new THREE.MeshBasicMaterial( {color: this.playerBlipColor, transparent: true, opacity: this.mapOpacity} );
+		this.changeMaterial(this.playerBlip, playerBlipMaterial);
 	};
 
 	// call this to change the color of the minimap (opacity )
@@ -72,6 +72,10 @@ var Minimap = function (walls, playerReference)
 		this.mapColor = newColor;
 		var newMaterial = new THREE.MeshBasicMaterial( {color: this.mapColor, transparent: true, opacity: this.mapOpacity} );
 		this.applyChanges();
+
+		// change the color of the player blip
+		var playerBlipMaterial = new THREE.MeshBasicMaterial( {color: this.playerBlipColor, transparent: true, opacity: this.mapOpacity} );
+		this.changeMaterial(this.playerBlip, playerBlipMaterial);
 	};
 
 	// call this to change the opacity of the minimap
@@ -80,12 +84,20 @@ var Minimap = function (walls, playerReference)
 		this.mapOpacity = newOpacity;
 		var newMaterial = new THREE.MeshBasicMaterial( {color: this.mapColor, transparent: true, opacity: this.mapOpacity} );
 		this.applyChanges(newMaterial);
+		
+		// change the color of the player blip
+		var playerBlipMaterial = new THREE.MeshBasicMaterial( {color: this.playerBlipColor, transparent: true, opacity: this.mapOpacity} );
+		this.changeMaterial(this.playerBlip, playerBlipMaterial);
 	};
 
 	// call this to change the material of the minimap
 	this.changeMapMaterial = function(newMaterial)
 	{
 		this.applyChanges(newMaterial);
+		
+		// change the color of the player blip
+		var playerBlipMaterial = new THREE.MeshBasicMaterial( {color: this.playerBlipColor, transparent: true, opacity: this.mapOpacity} );
+		this.changeMaterial(this.playerBlip, playerBlipMaterial);
 	};
 
 
