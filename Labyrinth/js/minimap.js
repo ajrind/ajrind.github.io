@@ -18,15 +18,15 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-// How to use this class.
+// How to use this class:
 // 1. Create a new instance of Minimap
 // 	  Parameters:
-//       - walls:a THREE.Object3D that contains all the objects you want displayed on the minimap.
-//		 - playerReference: is the THREE.Object3D which represents the player
+//       -           walls: a THREE.Object3D that contains all the objects you want displayed on the minimap.
+//		 - playerReference: the THREE.Object3D which represents the player (must have a position attribute)
 // 2. Call createMinimap() to instantiate the minimap.
 //       - After the minimap is created, you can access this.minimap to display it.
-// 3. Call animateMinimap() in your animate loop.
-var Minimap = function (walls, playerReference) 
+// 3. Call animateMap() in your animate loop.
+var Minimap = function (walls, playerReference)
 {
 	this.map = walls.clone();
 	this.xzScale = 0.0002;
@@ -40,14 +40,14 @@ var Minimap = function (walls, playerReference)
 	this.createMinimap = function()
 	{
 		// add the blip that represents the player to the map
-		this.playerBlip = playerReference.clone();
-		this.playerBlip.scale.set(20, 20, 20);
+		var playerBlipGeo = new THREE.SphereGeometry( 20, 30, 5 ); 
+		var playerBlipMaterial = new THREE.MeshBasicMaterial( {color: this.playerBlipColor, transparent: true, opacity: this.mapOpacity} );
+		this.playerBlip = new THREE.Mesh(playerBlipGeo, playerBlipMaterial);
+
+		//this.playerBlip = playerReference.clone();
 		this.playerBlip.transparent = false;
 		this.playerBlip.opacity = 100;
 		this.map.add(this.playerBlip);
-		
-		console.log("Player Blip:")
-		console.log(this.playerBlip)
 
 		// we don't want the map to receive or cast shadows
 		this.map.castShadow = false;
@@ -62,18 +62,18 @@ var Minimap = function (walls, playerReference)
 		// change the color of the minimap
 		this.changeMapColor(this.mapColor);
 		this.changeMapOpacity(this.mapOpacity);
-		var playerBlipMaterial = new THREE.MeshBasicMaterial( {color: this.playerBlipColor, transparent: true, opacity: this.mapOpacity} );
+
 		this.changeMaterial(this.playerBlip, playerBlipMaterial);
 	};
 
-	// call this to change the color of the minimap (opacity )
+	// call this to change the color of the minimap
 	this.changeMapColor = function(newColor)
 	{
 		this.mapColor = newColor;
 		var newMaterial = new THREE.MeshBasicMaterial( {color: this.mapColor, transparent: true, opacity: this.mapOpacity} );
 		this.applyChanges();
 
-		// change the color of the player blip
+		// restore the color of the player blip
 		var playerBlipMaterial = new THREE.MeshBasicMaterial( {color: this.playerBlipColor, transparent: true, opacity: this.mapOpacity} );
 		this.changeMaterial(this.playerBlip, playerBlipMaterial);
 	};
@@ -85,7 +85,7 @@ var Minimap = function (walls, playerReference)
 		var newMaterial = new THREE.MeshBasicMaterial( {color: this.mapColor, transparent: true, opacity: this.mapOpacity} );
 		this.applyChanges(newMaterial);
 		
-		// change the color of the player blip
+		// restore the color of the player blip
 		var playerBlipMaterial = new THREE.MeshBasicMaterial( {color: this.playerBlipColor, transparent: true, opacity: this.mapOpacity} );
 		this.changeMaterial(this.playerBlip, playerBlipMaterial);
 	};
@@ -95,7 +95,7 @@ var Minimap = function (walls, playerReference)
 	{
 		this.applyChanges(newMaterial);
 		
-		// change the color of the player blip
+		// restore the color of the player blip
 		var playerBlipMaterial = new THREE.MeshBasicMaterial( {color: this.playerBlipColor, transparent: true, opacity: this.mapOpacity} );
 		this.changeMaterial(this.playerBlip, playerBlipMaterial);
 	};
@@ -113,6 +113,7 @@ var Minimap = function (walls, playerReference)
 	this.animateMap = function()
 	{
 		this.playerBlip.position.x = this.player.position.x ;
+		this.playerBlip.position.y = this.player.position.y ;
 		this.playerBlip.position.z = this.player.position.z ;
 	};
 

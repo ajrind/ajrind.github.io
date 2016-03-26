@@ -133,16 +133,14 @@ var LabyrinthBuilder = function (wallMap) {
 	        	
 	        	if (wallMesh)
 	        	{
-	        		wallMeshCount++;	
+	        		wallMeshCount++;
 		        	wallMesh.position.x = xLocation;
 		        	wallMesh.position.y = this.yLen/2;
 		        	wallMesh.position.z = zLocation;
 		        	wallMesh.castShadow = true;
 		        	this.labyrinth.add( wallMesh );
-	   	        	//console.log("added wallMesh!");
 	        	}
 	        	xLocation += this.xLen
-	        	//console.log("xCoord = ", xCoord)
 	    	}
 	    	zLocation += this.zLen
 	    }	    

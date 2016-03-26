@@ -135,13 +135,14 @@ function init()
 	scene.add( MovingCube );
 
 	// Create the minimap
-	minimap = new Minimap(lb.labyrinth, MovingCube, scene);
+	minimap = new Minimap(lb.labyrinth, camera);
 	minimap.createMinimap();
 
-	MovingCube.add(minimap.map);
+	// place the minimap
+	camera.add(minimap.map);
 	minimap.map.position.x = 0.75;
 	minimap.map.position.y = -0.3;
 	minimap.map.position.z = -1;
-	
+	minimap.changeMapOpacity(0.75);
 	skyAnimator = new SkyAnimator(skyBox, scene);
 }

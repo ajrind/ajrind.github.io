@@ -9,3 +9,6 @@ Sky Animator:
 Main:
 	Title screen
 	Animate color of minimap
+
+GenerateNonCyclicMaze:
+	do it!
