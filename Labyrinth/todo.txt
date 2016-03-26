@@ -1,6 +1,8 @@
 TODO:
 
-Sun and Moon light sources
-Add clouds to the sky
-Title screen
-Show player position on minimap
+Sky Animator:
+	Sun and Moon light sources
+	Add clouds to the sky
+	Use sin function to simulate the change
+Main:
+	Title screen

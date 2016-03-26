@@ -23,43 +23,65 @@ var SkyAnimator = function (skyboxReference, scene)
 	this.scene = scene;
 	this.mesh = skyboxReference;
 
-	this.tints = [{r: 1,   g: 1,   b: 3  , o:0  },  // 12 AM Midnight
-				  {r: 1,   g: 1,   b: 3  , o:0  },  // 1 AM
-	  			  {r: 1,   g: 1,   b: 3  , o:0  },  // 2 AM
-	  			  {r: 1,   g: 1,   b: 3  , o:0  },  // 3 AM
-				  {r: 2,   g: 10,  b: 19 , o:10 },  // 4 AM
-				  {r: 20,  g: 30,  b: 70 , o:30 },  // 5 AM
-				  {r: 35,  g: 50,  b: 100, o:45 },  // 6 AM
-				  {r: 50,  g: 90,  b: 165, o:80 },  // 7 AM
-				  {r: 100, g: 102, b: 173, o:100},  // 8 AM
-				  {r: 120, g: 160, b: 216, o:100},  // 9 AM
-				  {r: 133, g: 197, b: 231, o:100},  // 10 AM
-				  {r: 133, g: 197, b: 231, o:100},  // 11 AM
-				  {r: 133, g: 197, b: 231, o:100},  // 12 PM Noon
-				  {r: 133, g: 197, b: 231, o:100},  // 1 PM
-				  {r: 133, g: 197, b: 231, o:100},  // 2 PM
-				  {r: 133, g: 197, b: 231, o:100},  // 3 PM
-				  {r: 120, g: 160, b: 216, o:90},  // 4 PM
-				  {r: 100, g: 102, b: 173, o:60 },  // 5 PM
-				  {r: 50,  g: 90,  b: 165, o:30 },  // 6 PM
-				  {r: 25,  g: 45,  b: 75 , o:10 },  // 7 PM
-				  {r: 0,   g: 0,   b: 3  , o:5  },  // 8 PM
-				  {r: 0,   g: 0,   b: 3  , o:0  },  // 9 PM
-				  {r: 0,   g: 0,   b: 3  , o:0  },  // 10 PM
-				  {r: 0,   g: 0,   b: 3  , o:0  }]; // 11 PM 
+	this.tints = [{r: 1,   g: 1,   b: 3  , o:0.00, h: 0.1},  // 12 AM Midnight
+				  {r: 1,   g: 1,   b: 3  , o:0.00, h: 0.1},  // 1 AM
+	  			  {r: 1,   g: 1,   b: 3  , o:0.00, h: 0.1},  // 2 AM
+	  			  {r: 1,   g: 1,   b: 3  , o:0.00, h: 0.1},  // 3 AM
+				  {r: 2,   g: 10,  b: 19 , o:0.10, h: 0.2},  // 4 AM
+				  {r: 20,  g: 30,  b: 70 , o:0.30, h: 0.3},  // 5 AM
+				  {r: 35,  g: 50,  b: 100, o:0.45, h: 0.4},  // 6 AM
+				  {r: 50,  g: 90,  b: 165, o:0.80, h: 0.6},  // 7 AM
+				  {r: 100, g: 102, b: 173, o:1.00, h: 0.7},  // 8 AM
+				  {r: 120, g: 160, b: 216, o:1.00, h: 0.8},  // 9 AM
+				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8},  // 10 AM
+				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8},  // 11 AM
+				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8},  // 12 PM Noon
+				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8},  // 1 PM
+				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8},  // 2 PM
+				  {r: 133, g: 197, b: 231, o:1.00, h: 0.7},  // 3 PM
+				  {r: 120, g: 160, b: 216, o:0.90, h: 0.6},  // 4 PM
+				  {r: 100, g: 102, b: 173, o:0.60, h: 0.5},  // 5 PM
+				  {r: 50,  g: 90,  b: 165, o:0.30, h: 0.4},  // 6 PM
+				  {r: 25,  g: 45,  b: 75 , o:0.10, h: 0.3},  // 7 PM
+				  {r: 0,   g: 0,   b: 3  , o:0.05, h: 0.2},  // 8 PM
+				  {r: 0,   g: 0,   b: 3  , o:0.00, h: 0.1},  // 9 PM
+				  {r: 0,   g: 0,   b: 3  , o:0.00, h: 0.1},  // 10 PM
+				  {r: 0,   g: 0,   b: 3  , o:0.00, h: 0.1}]; // 11 PM 
 
-	this.totalHours = this.tints.length;
-
+	// TIME AND SPEEDS
 	this.hourLength = 300;
-	this.currentHour = 14;
+	this.currentHour = 12;
+	this.totalHours = this.tints.length;
 	this.nextHour = (this.currentHour + 1) % this.totalHours;
 	this.timeElapsed = 0;
-
 	this.skyRotationSpeed = Math.PI/(this.totalHours*this.hourLength*2);
-	this.sunRevolutionSpeed = Math.PI/(this.totalHours*this.hourLength);
+	this.sunRevSpeed = Math.PI/(this.totalHours*this.hourLength);
 	
+	// LIGHTS
+	this.celestialBodies = new THREE.Object3D();
+	this.sunScalar  = 50;
+	this.moonScalar = 50;
+	// sun
+	this.theSun = new THREE.DirectionalLight( 0xffffff, 0.8 );
+	this.theSun.color.setHSL( 0.1, 1, 0.95 );
+	this.theSun.position.set( 0, 1.75, 0 );
+	this.theSun.position.multiplyScalar( this.sunScalar );
+	//this.celestialBodies.add( this.theSun );
+	// moon
+	this.theMoon = new THREE.DirectionalLight( 0xcccccc, 0.5 );
+	this.theMoon.color.setHSL( 0.1, 1, 0.95 );
+	this.theMoon.position.set( -1, 1.75, 1 );
+	this.theMoon.position.multiplyScalar( this.moonScalar );
+	//this.celestialBodies.add( this.theMoon );
+	// ambient
+	this.hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
+	this.hemiLight.color.setHSL( 0.6, 1, 0.6 );
+	this.hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
+	this.hemiLight.position.set( 0, 500, 0 );
+	scene.add( this.hemiLight );
 
-	// Create the starbox
+
+	// STARBOX
 	var materialArray = [];
 	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/sky/nightSky_right1.png' ), side: THREE.BackSide }));
 	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/sky/nightSky_left2.png' ), side: THREE.BackSide }));
@@ -67,7 +89,6 @@ var SkyAnimator = function (skyboxReference, scene)
 	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/sky/nightSky_bottom4.png' ), side: THREE.BackSide }));
 	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/sky/nightSky_front5.png' ), side: THREE.BackSide }));
 	materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'textures/sky/nightSky_back6.png' ), side: THREE.BackSide }));
-
 	for (var i = 0; i < materialArray.length; i++)
 	{
 		materialArray[i].wrapS = materialArray[i].wrapT = THREE.RepeatWrapping;
@@ -79,7 +100,7 @@ var SkyAnimator = function (skyboxReference, scene)
 	this.starBox.rotation.z = Math.PI/3;
 	this.scene.add( this.starBox );
 	
-	// initialize the opacity to the correct level
+	// OPACITY
 	this.mesh.material.transparent = true;	
 	this.mesh.material.opacity = this.tints[this.currentHour].o;
 
@@ -90,20 +111,23 @@ var SkyAnimator = function (skyboxReference, scene)
 			this.currentHour = this.nextHour;
 			this.nextHour = this.calcNextHour();
 			
-			this.currentR = this.tints[this.currentHour].r * 100;
-			this.currentG = this.tints[this.currentHour].g * 100;
-			this.currentB = this.tints[this.currentHour].b * 100;
+			this.currentR = this.tints[this.currentHour].r;
+			this.currentG = this.tints[this.currentHour].g;
+			this.currentB = this.tints[this.currentHour].b;
 			this.currentO = this.tints[this.currentHour].o;
+			this.currentH = this.tints[this.currentHour].h;
 
-			this.nextR = this.tints[this.nextHour].r * 100;
-			this.nextG = this.tints[this.nextHour].g * 100;
-			this.nextB = this.tints[this.nextHour].b * 100;
+			this.nextR = this.tints[this.nextHour].r;
+			this.nextG = this.tints[this.nextHour].g;
+			this.nextB = this.tints[this.nextHour].b;
 			this.nextO = this.tints[this.nextHour].o;
+			this.nextH = this.tints[this.nextHour].h;
 
 			this.deltaR = (this.nextR - this.currentR)/this.hourLength;
 			this.deltaG = (this.nextG - this.currentG)/this.hourLength;
 			this.deltaB = (this.nextB - this.currentB)/this.hourLength;
 			this.deltaO = (this.nextO - this.currentO)/this.hourLength;
+			this.deltaH = (this.nextH - this.currentH)/this.hourLength;
 			console.log("currentHour = ", this.currentHour);
 
 			this.timeElapsed = 0; // to avoid overflow
@@ -116,7 +140,8 @@ var SkyAnimator = function (skyboxReference, scene)
 			this.currentG += this.deltaG;
 			this.currentB += this.deltaB;
 			this.currentO += this.deltaO;
-			this.setColor(this.currentR/100, this.currentG/100, this.currentB/100, this.currentO/100);
+			this.currentH += this.deltaH;
+			this.setColor(this.currentR, this.currentG, this.currentB, this.currentO, this.currentH);
 		}
 		
 		// rotate the starbox
@@ -129,12 +154,13 @@ var SkyAnimator = function (skyboxReference, scene)
 		return (this.currentHour + 1) % this.totalHours;
 	};
 
-	this.setColor = function(r,g,b,o)
+	this.setColor = function(r,g,b,o,h)
 	{
 		r = Math.floor(r);
 		g = Math.floor(g);
 		b = Math.floor(b);
 		this.mesh.material.color.setRGB( r/255, g/255, b/255);
 		this.mesh.material.opacity = o;
+		this.hemiLight.intensity = h;
 	};
 };
