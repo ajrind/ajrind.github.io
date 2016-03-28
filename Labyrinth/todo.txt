@@ -8,7 +8,7 @@ Sky Animator:
 
 Main:
 	Title screen
-	Animate color of minimap
+	Options for the user to create his/her own custom maze (select textures, size, create walls using checkboxes, etc).
 
 GenerateNonCyclicMaze:
-	do it!
+	Fix bug where "holes" appear in the maze (empty spaces completely surrounded by walls)

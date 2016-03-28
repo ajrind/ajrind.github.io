@@ -80,7 +80,6 @@ function init()
 	xDim = 20
 	zDim = 20
 	ncmaze = new NCMaze(xDim,zDim);
-	ncmaze.startNode = {x:4, y:7};
 	ncmaze.generateMaze();
 /*
 	var testMap =[['6', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '11', '2', '2', '5'],

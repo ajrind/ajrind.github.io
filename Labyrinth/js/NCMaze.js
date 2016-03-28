@@ -25,11 +25,11 @@
 // non-cyclical maze to use in this game. Essentially, the maze starts as all walls and 
 // the algorithm "carves" out the maze.
 
-// Non-Cylical Maze Generator.
-// 1. Instantiate this class
+// How to use this Non-Cylical Maze Generator:
+// 1. Instantiate this class; the maze is xDim by yDim units large
 // 2. Call generateMaze()
 // 3. The maze is now stored as a 2D array in this.maze; 0's represent the paths in the maze and 1's represent the walls of the maze 
-var NCMaze = function(xDim, yDim) 
+var NCMaze = function(xDim, yDim)
 {
    this.xDim = xDim;
    this.yDim = yDim;
