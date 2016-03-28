@@ -68,7 +68,7 @@ var NCMaze = function(xDim, yDim)
       // add new nodes until there are no more allowable spaces to create on the map
       var count = 0;
       var finishPlaced = false;
-      while (stack.length > 0 && count < 1000)
+      while (stack.length > 0)
       {
          var currentNode = stack[stack.length - 1];
          var nextNode = this.getNextNode(currentNode); // the top node
