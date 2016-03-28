@@ -65,17 +65,22 @@ var NCMaze = function(xDim, yDim)
       var stack = new Array();
       stack.push(this.startNode);
 
-      // add new nodes until there are no more allowable spaces to create on the map
+      
       var count = 0;
       var finishPlaced = false;
+
+      // add new nodes until there are no more allowable spaces to create on the map
       while (stack.length > 0)
       {
          var currentNode = stack[stack.length - 1];
          var nextNode = this.getNextNode(currentNode); // the top node
-         if (nextNode === null)  // no more empty adjacent nodes
+         
+         // reached a dead end (all adjacent walls are invalid candidates)
+         if (nextNode === null)
          {
-            if (!finishPlaced) // hopefully this will create a finish that is far from the start
-            {
+            // place the finish at the end of the first complete path (this is usually one of the longest paths)
+            if (!finishPlaced) 
+            {                  
                this.finishNode.x = currentNode.x;
                this.finishNode.y = currentNode.y;
                finishPlaced = true;
@@ -83,7 +88,8 @@ var NCMaze = function(xDim, yDim)
             stack.pop();
          }
 
-         else // advance to an empty space
+         // advance to next node
+         else 
          {
             stack.push(nextNode);
             this.maze[nextNode.y][nextNode.x] = '0';
