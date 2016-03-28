@@ -77,15 +77,12 @@ function init()
 	scene.add(skyBox);
 	scene.fog = new THREE.FogExp2( 0x9999ff, 0.0001 );
 	
-	// MAP
-	//Andrew
-	//TODO: Get x dimension, z dimension, and map file from external source
-	//TEMP: Hardcoded map
-	/*
-	map =  Map.getMap();
-	xDim = Map.getXDim();
-	zDim = Map.getZDim();
-	*/
+	xDim = 20
+	zDim = 20
+	ncmaze = new NCMaze(xDim,zDim);
+	ncmaze.startNode = {x:4, y:7};
+	ncmaze.generateMaze();
+/*
 	var testMap =[['6', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '11', '2', '2', '5'],
 				  ['1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1',  '0', '0', '1'],
 				  ['1', '0', '6', '2', '2', '5', '0', '0', '6', '2', '2', '4',  '0', '0', '1'],
@@ -101,15 +98,14 @@ function init()
 				  ['1', '0', '2', '4', '0', '1', '0', '1', '0', '2', '4', '0',  '0', '0', '1'],
 				  ['1', '0', '0', '0', '0', '1', 'S', '1', '0', '0', '0', '0',  '1', '0', '1'],
 				  ['3', '2', '2', '2', '2', '9', '2', '9', '2', '2', '2', '2',  '9', '2', '4']];
-	lb = new LabyrinthBuilder(testMap);
+*/	
+	lb = new LabyrinthBuilder(ncmaze.maze);
 	lb.build();
 	scene.add(lb.labyrinth);
 	startX = lb.startCoords.x;
 	startY = lb.startCoords.y;
 	startZ = lb.startCoords.z;
 	teapot = lb.teapot;
-	console.log("teapot:");
-	console.log(teapot);
 
 	////////////
 	// CUSTOM //

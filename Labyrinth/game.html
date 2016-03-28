@@ -17,12 +17,11 @@
 <script src="js/THREEx.WindowResize.js"></script>
 <script src="js/labyrinth.js"></script>
 <script src="js/controls.js"></script>
-<script src="js/tween.min.js"></script>
 <script src="js/SkyAnimator.js"></script>
 <script src="js/minimap.js"></script>
 <script src="js/initialize.js"></script>
 <script src="js/TeapotBufferGeometry.js"></script>
-<script src="js/colladaLoader.js"></script>
+<script src="js/NCMaze.js"></script>
 
 <!-- jQuery code to display an information button and box when clicked. -->
 <script src="js/jquery-1.9.1.js"></script>
@@ -72,13 +71,12 @@ function update()
 {
 	skyAnimator.animateSky();
 	minimap.animateMap();
-	teapot.rotation.x += Math.PI/300;
-	teapot.rotation.y += Math.PI/200;
-	teapot.rotation.z += Math.PI/100;
-
-	var oldX = MovingCube.position.x;
-	var oldY = MovingCube.position.y;
-	var oldZ = MovingCube.position.z;
+	if(teapot)
+	{
+		teapot.rotation.x += Math.PI/300;
+		teapot.rotation.y += Math.PI/200;
+		teapot.rotation.z += Math.PI/100;
+	}
 
 	getMovement();
 	

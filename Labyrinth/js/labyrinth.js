@@ -25,7 +25,6 @@ var LabyrinthBuilder = function (wallMap) {
 	this.yLen = 40;             // height of the wall
 	this.startCoords  = {x:0, y:25, z:0};
 	this.finishCoords = {x:0, y:25, z:0};
-	this.minimap;
 	this.teapot;
 	this.labyrinth;
 	this.wallWidth = 1; // The width of the labyrinth walls. Use 1 for cube walls. 0 < wallWidth <= 1
@@ -144,11 +143,8 @@ var LabyrinthBuilder = function (wallMap) {
 	    	}
 	    	zLocation += this.zLen
 	    }	    
-	    console.log("Labyrinth:");
 	    this.labyrinth.castShadow = true;
 	    this.labyrinth.receiveShadow = true;
-	    console.log(this.labyrinth);
-	    this.createMinimap();
 	}
 
 	// I decided to just create the wall segments on an as-needed basis (instead of at the top of function)
@@ -301,7 +297,7 @@ var LabyrinthBuilder = function (wallMap) {
 				break;
 
 			default:
-				console.log("ERROR: requested invalid wall: ", wallNumber);
+				console.error("ERROR: requested invalid wall: ", wallNumber);
 
 		}
 
@@ -350,36 +346,6 @@ var LabyrinthBuilder = function (wallMap) {
 		*/
 
 		return wallMesh;
-	};
-
-	this.createMinimap = function()
-	{
-		var xyScale = 0.0002;
-		// the map is a clone of the original maze
-		this.minimap = this.labyrinth.clone();
-		this.minimap.castShadow = false;
-		this.minimap.receiveShadow = false;
-
-		// scale the map (shrink and flatten it)
-		this.minimap.scale.set(xyScale, 0.00001, xyScale);
-
-		// make it face the camera
-		this.minimap.rotation.x = Math.PI/2;
-		this.minimap.name = "minimap";
-		//this.minimap.rotation.z = Math.PI/1200;
-		
-		//console.log("original minimap:");
-		//console.log(this.minimap);
-		//scene.add(this.minimap);
-
-		// change the color of the minimap
-		newMaterial = new THREE.MeshBasicMaterial( {color: 0x000000} );
-		console.log(this.minimap)
-		for (var i = 0; i < this.minimap.children.length; i++)
-		{
-			this.changeMaterial(this.minimap.children[i], newMaterial);
-		}
-
 	};
 
 	this.changeMaterial = function(mesh, newMaterial)

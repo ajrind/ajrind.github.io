@@ -22,7 +22,7 @@ var SkyAnimator = function (skyboxReference, scene)
 {
 	this.scene = scene;
 	this.mesh = skyboxReference;
-
+	this.logHour = false;
 	this.tints = [{r: 1,   g: 1,   b: 3  , o:0.00, h: 0.1},  // 12 AM Midnight
 				  {r: 1,   g: 1,   b: 3  , o:0.00, h: 0.1},  // 1 AM
 	  			  {r: 1,   g: 1,   b: 3  , o:0.00, h: 0.1},  // 2 AM
@@ -50,7 +50,7 @@ var SkyAnimator = function (skyboxReference, scene)
 
 	// TIME AND SPEEDS
 	this.hourLength = 300;
-	this.currentHour = 14;
+	this.currentHour = 11;
 	this.totalHours = this.tints.length;
 	this.nextHour = (this.currentHour + 1) % this.totalHours;
 	this.timeElapsed = 0;
@@ -67,12 +67,10 @@ var SkyAnimator = function (skyboxReference, scene)
 	sunLight.color.setHSL( 0.1, 1, 0.95 );
 	sunLight.position.set( 0, this.sunOrbitHeight, 0 );
 	sunLight.castShadow = true; 
-	//this.scene.add( sunLight );
+	this.scene.add( sunLight );
 	//this.theSun.add( sunLight );
 	//this.scene.add( this.theSun );
 	
-	console.log("*********************scene*************************")
-	console.log(this.scene);
 	// MOON
 	this.theMoon = new THREE.Object3D();
 	this.theMoon.position = new THREE.Vector3(0,0,0);
@@ -141,9 +139,13 @@ var SkyAnimator = function (skyboxReference, scene)
 			this.deltaB = (this.nextB - this.currentB)/this.hourLength;
 			this.deltaO = (this.nextO - this.currentO)/this.hourLength;
 			this.deltaH = (this.nextH - this.currentH)/this.hourLength;
-			console.log("currentHour = ", this.currentHour);
 
 			this.timeElapsed = 0; // to avoid overflow
+
+			if (this.logHour)
+			{
+				console.log("currentHour = ", this.currentHour);
+			}
 		}
 
 		else // animate the color change
