@@ -22,6 +22,7 @@ function getMovement()
 	if ( keyboard.pressed("P") ) // test 
 	{
 		//console.log(camera.position);
+		/*
 		var paused = true;
 		var teapotTexture = new THREE.ImageUtils.loadTexture( 'textures/goldGlitter.png' );
 		teapotTexture.wrapS = teapotTexture.wrapT = THREE.RepeatWrapping;
@@ -31,6 +32,9 @@ function getMovement()
 		console.log(teapotMaterial);
 		lb.setWallTexture(teapotMaterial);
 		minimap.changeMapMaterial(new THREE.MeshBasicMaterial( {color: 0xcc2222} ));
+		*/
+		console.log("Sun position:")
+		console.log(skyAnimator.theSun.children[0])
 	}
 
 	// rotate left/right

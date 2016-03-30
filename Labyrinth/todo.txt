@@ -3,12 +3,14 @@ TODO:
 Sky Animator:
 	Sun and Moon light sources
 	Add clouds to the sky
-	Use sin function to simulate the change instead of hardcoded colors
-		++ Pass in the function to calculate the change! Because JavaScript.
+	Sinusoidal fading
 
 Main:
+	Collision detection
 	Title screen
 	Options for the user to create his/her own custom maze (select textures, size, create walls using checkboxes, etc).
+	Use quaternion for left/right camera axis spinning
+		http://stackoverflow.com/questions/16319742/three-js-rotating-a-sphere-around-a-certain-axis
 
 GenerateNonCyclicMaze:
 	Fix bug where "holes" appear in the maze (empty spaces completely surrounded by walls)

@@ -23,30 +23,33 @@ var SkyAnimator = function (skyboxReference, scene)
 	this.scene = scene;
 	this.mesh = skyboxReference;
 	this.logHour = false;
-	this.tints = [{r: 1,   g: 1,   b: 3  , o:0.00, h: 0.1},  // 12 AM Midnight
-				  {r: 1,   g: 1,   b: 3  , o:0.00, h: 0.1},  // 1 AM
-	  			  {r: 1,   g: 1,   b: 3  , o:0.00, h: 0.1},  // 2 AM
-	  			  {r: 1,   g: 1,   b: 3  , o:0.00, h: 0.1},  // 3 AM
-				  {r: 2,   g: 10,  b: 19 , o:0.10, h: 0.2},  // 4 AM
-				  {r: 20,  g: 30,  b: 70 , o:0.30, h: 0.3},  // 5 AM
-				  {r: 35,  g: 50,  b: 100, o:0.45, h: 0.4},  // 6 AM
-				  {r: 50,  g: 90,  b: 165, o:0.80, h: 0.6},  // 7 AM
-				  {r: 100, g: 102, b: 173, o:1.00, h: 0.7},  // 8 AM
-				  {r: 120, g: 160, b: 216, o:1.00, h: 0.8},  // 9 AM
-				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8},  // 10 AM
-				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8},  // 11 AM
-				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8},  // 12 PM Noon
-				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8},  // 1 PM
-				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8},  // 2 PM
-				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8},  // 3 PM
-				  {r: 120, g: 160, b: 216, o:0.90, h: 0.7},  // 4 PM
-				  {r: 100, g: 102, b: 173, o:0.70, h: 0.55},  // 5 PM
-				  {r: 50,  g: 90,  b: 165, o:0.40, h: 0.38},  // 6 PM
-				  {r: 25,  g: 45,  b: 75 , o:0.20, h: 0.2},  // 7 PM
-				  {r: 0,   g: 0,   b: 3  , o:0.05, h: 0.12},  // 8 PM
-				  {r: 0,   g: 0,   b: 3  , o:0.00, h: 0.1},  // 9 PM
-				  {r: 0,   g: 0,   b: 3  , o:0.00, h: 0.1},  // 10 PM
+	this.tints = [{r: 1,   g: 1,   b: 3  , o:0.00, h: 0.1 }, // 12 AM Midnight
+				  {r: 1,   g: 1,   b: 3  , o:0.00, h: 0.1 }, // 1 AM
+	  			  {r: 1,   g: 1,   b: 3  , o:0.00, h: 0.1 }, // 2 AM
+	  			  {r: 1,   g: 1,   b: 3  , o:0.00, h: 0.1 }, // 3 AM
+				  {r: 2,   g: 10,  b: 19 , o:0.10, h: 0.2 }, // 4 AM
+				  {r: 20,  g: 30,  b: 70 , o:0.30, h: 0.3 }, // 5 AM
+				  {r: 35,  g: 50,  b: 100, o:0.45, h: 0.4 }, // 6 AM
+				  {r: 50,  g: 90,  b: 165, o:0.80, h: 0.6 }, // 7 AM
+				  {r: 100, g: 102, b: 173, o:1.00, h: 0.7 }, // 8 AM
+				  {r: 120, g: 160, b: 216, o:1.00, h: 0.8 }, // 9 AM
+				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8 }, // 10 AM
+				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8 }, // 11 AM
+				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8 }, // 12 PM Noon
+				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8 }, // 1 PM
+				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8 }, // 2 PM
+				  {r: 133, g: 197, b: 231, o:1.00, h: 0.8 }, // 3 PM
+				  {r: 120, g: 160, b: 216, o:0.90, h: 0.7 }, // 4 PM
+				  {r: 100, g: 102, b: 173, o:0.70, h: 0.55}, // 5 PM
+				  {r: 50,  g: 90,  b: 165, o:0.40, h: 0.38}, // 6 PM
+				  {r: 25,  g: 45,  b: 75 , o:0.20, h: 0.2 }, // 7 PM
+				  {r: 0,   g: 0,   b: 3  , o:0.05, h: 0.12}, // 8 PM
+				  {r: 0,   g: 0,   b: 3  , o:0.00, h: 0.1 }, // 9 PM
+				  {r: 0,   g: 0,   b: 3  , o:0.00, h: 0.1 }, // 10 PM
 				  {r: 0,   g: 0,   b: 3  , o:0.00, h: 0.1}]; // 11 PM 
+
+    // TODO: Implement this function to calculate color fading instead of using hardcoded values:
+    // (sin(x*pi/12) + 1) / 2    <- produces numbers between 1 and 0, with a period of 24 
 
 	// TIME AND SPEEDS
 	this.hourLength = 300;
@@ -55,27 +58,44 @@ var SkyAnimator = function (skyboxReference, scene)
 	this.nextHour = (this.currentHour + 1) % this.totalHours;
 	this.timeElapsed = 0;
 	this.skyRotationSpeed = Math.PI/(this.totalHours*this.hourLength*2);
-	this.sunRevSpeed  = Math.PI/(this.totalHours*this.hourLength);
-	this.moonRevSpeed = Math.PI/(this.totalHours*this.hourLength);
-	
-	// SUN
-	this.theSun  = new THREE.Object3D(); // the object stays centered at the origin. Think of it like the arm of ferris wheel, connecting from the center to the rim.
-	this.theSun.position = new THREE.Vector3(0,0,0);
-	this.sunOrbitHeight = 150;
+	this.sunRevSpeed  = (Math.PI * 2)/(this.totalHours*this.hourLength);
+	this.moonRevSpeed = (Math.PI * 2)/(this.totalHours*this.hourLength);
+	var sunRadius = 20;
+	this.sunOrbitHeight = skyboxReference.geometry.parameters.height/2 - sunRadius;
+	console.log(skyboxReference.geometry.parameters.height);
 
-	var sunLight = new THREE.DirectionalLight( 0xffffff, 0.9 );
-	sunLight.color.setHSL( 0.1, 1, 0.95 );
-	sunLight.position.set( 0, this.sunOrbitHeight, 0 );
-	sunLight.castShadow = true; 
-	this.scene.add( sunLight );
-	//this.theSun.add( sunLight );
-	//this.scene.add( this.theSun );
+
+	// ORIGIN - for the sun and moon
+	this.origin = new THREE.Object3D();
+	this.scene.add( this.origin );
+
+	// SUN
+	var sunModelGeometry = new THREE.SphereGeometry( sunRadius, 32, 16 ); 
+	var sunModelMaterial = new THREE.MeshBasicMaterial( {color: 0xffff66} ); 
+	var sunModel = new THREE.Mesh ( sunModelGeometry, sunModelMaterial);
+	var sunLightPosition = new THREE.Object3D();
+	//var sunLightPosition.position.copy()
+	sunModel.position.set( 0, this.sunOrbitHeight, 0 );
+	this.theSun  = new THREE.Object3D(); // the object stays centered at the origin. Think of it like the arm of ferris wheel, connecting from the center to the rim.
+	this.theSun.add ( sunModel );
+	this.scene.add( this.theSun );
+
+	// SUN LIGHT
+	this.sunLight = new THREE.DirectionalLight( 0xffffdd, 0.9 );
+	this.sunLight.color.setHSL( 0.1, 1, 0.95 );
+	this.sunLight.position.set( 0, this.sunOrbitHeight, 0 );
+	this.sunLight.castShadow = true; 	
+	this.sunLight.target = this.origin;
+	this.sunLight.position = (0, this.sunOrbitHeight, 0 );
+	this.scene.add( this.sunLight );
+	console.log("Sun light:");
+	console.log(this.sunLight)
 	
+
 	// MOON
 	this.theMoon = new THREE.Object3D();
 	this.theMoon.position = new THREE.Vector3(0,0,0);
 	this.moonOrbitHeight = 1500;
-
 	this.moonScalar = 50;
 	var moonLight = new THREE.DirectionalLight( 0xcccccc, 0.3 );
 	moonLight.color.setHSL( 0.1, 1, 0.95 );
@@ -84,7 +104,7 @@ var SkyAnimator = function (skyboxReference, scene)
 	//this.theMoon.add( moonLight );
 	//this.scene.add(theMoon);
 
-	// ambient
+	// AMBIENT LIGHT
 	this.hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
 	this.hemiLight.color.setHSL( 0.6, 1, 0.6 );
 	this.hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
@@ -107,7 +127,7 @@ var SkyAnimator = function (skyboxReference, scene)
 	var starBoxMaterial = new THREE.MeshFaceMaterial(materialArray);
 	var starBoxGeometry = new THREE.CubeGeometry( 4096, 4096, 4096, 1, 1, 1, materialArray );
 	this.starBox = new THREE.Mesh( starBoxGeometry, starBoxMaterial);
-	this.starBox.rotation.y = Math.PI/3;
+	this.starBox.rotation.y = Math.PI/3; // just so the prettiest side is seen at night first
 	this.starBox.rotation.z = Math.PI/3;
 	this.scene.add( this.starBox );
 	
@@ -161,7 +181,9 @@ var SkyAnimator = function (skyboxReference, scene)
 		
 		// rotate the starbox and celestial bodies
 		this.starBox.rotation.x += this.skyRotationSpeed;
-		//this.theSun.rotation.x  += this.sunRotationSpeed;
+		this.theSun.rotation.x  += this.sunRevSpeed;
+		this.theSun.updateMatrixWorld();
+		this.sunLight.position.copy( this.theSun.children[0].position );
 		this.timeElapsed++;
 	};
 

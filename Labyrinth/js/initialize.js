@@ -69,7 +69,7 @@ function init()
 	scene.add(floor);
 	
 	// SKYBOX/FOG
-	var skyBoxGeometry = new THREE.CubeGeometry( xBound, yBound, zBound );
+	var skyBoxGeometry = new THREE.CubeGeometry( xBound*2.3, yBound*2.3, zBound*2.3 );
 	//var skyBoxGeometry = new THREE.SphereGeometry( 2000, 32, 16 ); 
 	var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0x9999ff, side: THREE.BackSide } );
 	skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
