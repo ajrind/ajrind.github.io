@@ -87,9 +87,9 @@ var SkyAnimator = function (skyboxReference, scene)
 	this.sunLight.castShadow = true; 	
 	this.sunLight.target = this.origin;
 	this.sunLight.position = (0, this.sunOrbitHeight, 0 );
-	this.scene.add( this.sunLight );
+	//this.scene.add( this.sunLight );
 	console.log("Sun light:");
-	console.log(this.sunLight)
+	//console.log(this.sunLight)
 	
 
 	// MOON
