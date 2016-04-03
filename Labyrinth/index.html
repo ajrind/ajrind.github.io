@@ -58,7 +58,7 @@ var teapot;
 
 init();
 animate();
-
+var logged = false;
 // FUNCTIONS
 function animate(time)
 {
@@ -71,14 +71,22 @@ function update()
 {
 	skyAnimator.animateSky();
 	minimap.animateMap();
-	if(teapot)
+
+	if (!logged)
+	{
+		console.log("lb:")
+		console.log(lb)
+		logged = true;
+	}
+
+	if(teapot) // make the teapot rotate
 	{
 		teapot.rotation.x += Math.PI/300;
 		teapot.rotation.y += Math.PI/200;
 		teapot.rotation.z += Math.PI/100;
 	}
 
-	getMovement();
+	getMovement(ncmaze, lb);
 	
 	camera.position.x = MovingCube.position.x;
 	camera.position.y = MovingCube.position.y;

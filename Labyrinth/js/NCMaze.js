@@ -98,8 +98,8 @@ var NCMaze = function(xDim, yDim)
       }
 
       // mark the start and finish
-      this.maze[this.startNode.y][this.startNode.x] = "S";
-      this.maze[this.finishNode.y][this.finishNode.x] = "F";
+      this.maze[this.startNode.y][this.startNode.x] = 'S';
+      this.maze[this.finishNode.y][this.finishNode.x] = 'F';
    };
 
 
@@ -247,11 +247,9 @@ var NCMaze = function(xDim, yDim)
       }
       else
       {
-         var string = "FALSE";
          if (this.maze[y][x] === '1')
          {
             isWall = true;
-            string = "TRUE";
          }
       }
       return isWall;
