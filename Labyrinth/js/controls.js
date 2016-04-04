@@ -79,6 +79,7 @@ function getMovement(ncmazw,lb)
 	}
 
 	// rotate up/down *TO DISABLE*
+	/*
 	if ( keyboard.pressed("R") )
 	{
 		MovingCube.rotateOnAxis( new THREE.Vector3(1,0,0), rotateAngle);
@@ -89,6 +90,7 @@ function getMovement(ncmazw,lb)
 		MovingCube.rotateOnAxis( new THREE.Vector3(1,0,0), -rotateAngle);
 		camera.rotateOnAxis( new THREE.Vector3(1,0,0), -rotateAngle);
 	}
+	*/
 	
 	// TODO: Menu toggle button
 	if ( keyboard.pressed("Z") )
