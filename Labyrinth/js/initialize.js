@@ -139,7 +139,7 @@ function init()
 	console.log("SCREEN_WIDTH:", SCREEN_WIDTH);
 	console.log("SCREEN_HEIGHT:",SCREEN_HEIGHT);
 	//minimap.map.position.x = SCREEN_WIDTH  / (SCREEN_WIDTH*1.5);  // left / right
-	minimap.map.position.y = SCREEN_HEIGHT / (SCREEN_HEIGHT*10);  // up / down
+	minimap.map.position.y = -SCREEN_HEIGHT / (SCREEN_HEIGHT*4);  // up / down
 	minimap.map.position.z = -1;    // size (distance from the camera)
 	minimap.changeMapOpacity(0.5);
 
