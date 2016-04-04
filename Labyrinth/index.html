@@ -115,7 +115,7 @@ var teapot;
 
 init();
 animate();
-var logged = false;
+
 // FUNCTIONS
 function animate(time)
 {
@@ -128,13 +128,6 @@ function update()
 {
 	skyAnimator.animateSky();
 	minimap.animateMap();
-
-	if (!logged)
-	{
-		console.log("lb:")
-		console.log(lb)
-		logged = true;
-	}
 
 	if(teapot) // make the teapot rotate
 	{
