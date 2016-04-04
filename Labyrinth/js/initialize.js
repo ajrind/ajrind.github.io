@@ -136,11 +136,14 @@ function init()
 
 	// place the minimap
 	camera.add(minimap.map);
-	console.log("SCREEN_WIDTH:", SCREEN_WIDTH);
+	console.log("SCREEN_WIDTH:", SCREEN_WIDTH  / (SCREEN_WIDTH*1.5));
+
 	console.log("SCREEN_HEIGHT:",SCREEN_HEIGHT);
-	minimap.map.position.x = 0.75;
-	minimap.map.position.y = -0.3;
-	minimap.map.position.z = -1;
+	minimap.map.position.x = SCREEN_WIDTH  / (SCREEN_WIDTH*1.5);  // left / right
+	minimap.map.position.y = SCREEN_HEIGHT / (SCREEN_HEIGHT*10);  // up / down
+	minimap.map.position.z = -1;    // size (distance from the camera)
 	minimap.changeMapOpacity(0.75);
+
+	console.log("Minimap at:",minimap.map.position.x, ",",minimap.map.position.y)
 	skyAnimator = new SkyAnimator(skyBox, scene);
 }
