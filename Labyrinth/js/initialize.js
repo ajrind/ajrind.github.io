@@ -136,7 +136,7 @@ function init()
 
 	// place the minimap
 	camera.add(minimap.map);
-	console.log("SCREEN_WIDTH:", SCREEN_WIDTH));
+	console.log("SCREEN_WIDTH:", SCREEN_WIDTH);
 	console.log("SCREEN_HEIGHT:",SCREEN_HEIGHT);
 	//minimap.map.position.x = SCREEN_WIDTH  / (SCREEN_WIDTH*1.5);  // left / right
 	minimap.map.position.y = SCREEN_HEIGHT / (SCREEN_HEIGHT*10);  // up / down
