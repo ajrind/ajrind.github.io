@@ -62,7 +62,7 @@ var SkyAnimator = function (skyboxReference, scene)
 	this.moonRevSpeed = (Math.PI * 2)/(this.totalHours*this.hourLength);
 	var sunRadius = 20;
 	this.sunOrbitHeight = skyboxReference.geometry.parameters.height/2 - sunRadius;
-	console.log(skyboxReference.geometry.parameters.height);
+	//console.log(skyboxReference.geometry.parameters.height);
 
 
 	// ORIGIN - for the sun and moon
@@ -73,8 +73,6 @@ var SkyAnimator = function (skyboxReference, scene)
 	var sunModelGeometry = new THREE.SphereGeometry( sunRadius, 32, 16 ); 
 	var sunModelMaterial = new THREE.MeshBasicMaterial( {color: 0xffff66} ); 
 	var sunModel = new THREE.Mesh ( sunModelGeometry, sunModelMaterial);
-	var sunLightPosition = new THREE.Object3D();
-	//var sunLightPosition.position.copy()
 	sunModel.position.set( 0, this.sunOrbitHeight, 0 );
 	this.theSun  = new THREE.Object3D(); // the object stays centered at the origin. Think of it like the arm of ferris wheel, connecting from the center to the rim.
 	this.theSun.add ( sunModel );
@@ -88,7 +86,7 @@ var SkyAnimator = function (skyboxReference, scene)
 	this.sunLight.target = this.origin;
 	this.sunLight.position = (0, this.sunOrbitHeight, 0 );
 	//this.scene.add( this.sunLight );
-	console.log("Sun light:");
+	//console.log("Sun light:");
 	//console.log(this.sunLight)
 	
 
@@ -161,11 +159,12 @@ var SkyAnimator = function (skyboxReference, scene)
 			this.deltaH = (this.nextH - this.currentH)/this.hourLength;
 
 			this.timeElapsed = 0; // to avoid overflow
-
+			/*
 			if (this.logHour)
 			{
 				console.log("currentHour = ", this.currentHour);
 			}
+			*/
 		}
 
 		else // animate the color change

@@ -1,7 +1,7 @@
 function getMovement(ncmazw,lb)
 {
 	var delta = clock.getDelta(); // seconds.
-	var moveDistance = 100 * delta; // 300 pixels per second
+	var moveDistance = 70 * delta;
 	var rotateAngle = Math.PI / 2 * delta;   // pi/2 radians (90 degrees) per second
 	
 	var oldX = MovingCube.position.x;
@@ -43,18 +43,13 @@ function getMovement(ncmazw,lb)
 		console.log("Sun position:")
 		console.log(skyAnimator.theSun.children[0])
 		*/
-		//console.log("xDim:",ncmaze.xDim)
-		//console.log(ncmaze);
-		//console.log(lb);
-		//console.log("wallMap:");
-		//console.log(ncmaze.maze);
-		console.log("x:",xCurrentMapCoord);
-		//console.log("y:",MovingCube.position.y);
-		console.log("z:",zCurrentMapCoord);
 
-		//console.log("")
+		/*
+		console.log("x:",xCurrentMapCoord);
+		console.log("z:",zCurrentMapCoord);
 		console.log("Map:",ncmaze.maze[zCurrentMapCoord][xCurrentMapCoord]);
 		console.log("'S' !==",ncmaze.maze[zCurrentMapCoord][xCurrentMapCoord], "is", ncmaze.maze[zCurrentMapCoord][xCurrentMapCoord] !== 'S')
+		*/
 	}
 
 	// the player tried to move into a wall. send back to current position
@@ -83,7 +78,7 @@ function getMovement(ncmazw,lb)
 		camera.rotateOnAxis( new THREE.Vector3(0,1,0), -rotateAngle);
 	}
 
-	// rotate up/down *DISABLE*
+	// rotate up/down *TO DISABLE*
 	if ( keyboard.pressed("R") )
 	{
 		MovingCube.rotateOnAxis( new THREE.Vector3(1,0,0), rotateAngle);

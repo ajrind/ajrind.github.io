@@ -4,6 +4,7 @@ Sky Animator:
 	Sun and Moon light sources
 	Add clouds to the sky
 	Sinusoidal fading
+	Initialize sun position to match the correct hour
 
 Main:
 	Collision detection

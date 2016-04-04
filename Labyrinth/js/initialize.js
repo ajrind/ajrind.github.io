@@ -126,8 +126,9 @@ function init()
 
 
 	// Place the cube/camera at the starting position, looking into the labyrinth
-	MovingCube.position.set(startX, startY, startZ);
-	scene.add( MovingCube );
+	MovingCube.position.set(startX, startY, startZ);	
+	MovingCube.rotation.y = -Math.PI/4 * 3;
+	camera.rotation.y = -Math.PI/4 * 3;
 
 	// Create the minimap
 	minimap = new Minimap(lb.labyrinth, camera);
