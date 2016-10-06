@@ -145,4 +145,14 @@ function init()
 
 	console.log("Minimap at:",minimap.map.position.x, ",",minimap.map.position.y)
 	skyAnimator = new SkyAnimator(skyBox, scene);
+
+
+	// spotlight
+	spotlight = new THREE.DirectionalLight( 0xffffdd, 0.5 );
+	spotlight.position.set( camera.position.x, camera.position.y + 1, camera.position.z );
+	spotlight.color.setHSL( 1, 1, 1 );
+	spotlight.target = camera;
+
+
+	scene.add( spotlight );
 }

@@ -21,7 +21,7 @@
 // After my internship interview with HP, I was curious about searching algorithms and stumbled
 // upon the following video: https://commons.wikimedia.org/wiki/File:MAZE_30x20_DFS.ogv
 // It shows how a variant of a depth first search algorithm can be used to generate
-// a maze. I spent the next little bit engineering this algorithm which generates a random 
+// a maze. I spent the next few hours engineering this algorithm which generates a random 
 // non-cyclical maze to use in this game. Essentially, the maze starts as all walls and 
 // the algorithm "carves" out the maze.
 

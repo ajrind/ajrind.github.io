@@ -112,6 +112,7 @@ var skyBox;
 var MovingCube;
 var minimap;
 var teapot;
+var spotlight;
 
 init();
 animate();
@@ -145,6 +146,8 @@ function update()
 	camera.position.y = MovingCube.position.y;
 	camera.position.z = MovingCube.position.z;
 	
+	spotlight.position.set( camera.position.x, camera.position.y + 50, camera.position.z );
+
 	stats.update();
 }
 
