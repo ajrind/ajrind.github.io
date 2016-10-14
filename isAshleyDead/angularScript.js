@@ -17,6 +17,7 @@ app.controller('nightScoutCtrl', function($scope, $http) {
       var LOWER_DEAD = 20;
 
       if (($scope.data.sgv > UPPER_ALMOST && $scope.data.sgv < UPPER_DEAD ) || 
+      	  ($scope.data.sgv < LOWER_ALMOST && $scope.data.sgv > UPPER_DEAD ))
       {
       	$scope.data.mainTitle = "Almost."
       	$scope.data.subTitle  = "Check back soon";	
