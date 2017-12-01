@@ -10,8 +10,8 @@ app.controller('nightScoutCtrl', function($scope, $http) {
       $scope.data.mainTitle = "";
       $scope.data.subTitle = null;
 
-      var UPPER_ALMOST = 150;
-      var LOWER_ALMOST = 80;
+      var UPPER_ALMOST = 180;
+      var LOWER_ALMOST = 70;
 
       var UPPER_DEAD = 700;
       var LOWER_DEAD = 20;
