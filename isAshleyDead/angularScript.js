@@ -19,7 +19,7 @@ app.controller('nightScoutCtrl', function($scope, $http) {
       if (($scope.data.sgv > UPPER_ALMOST && $scope.data.sgv < UPPER_DEAD ) || 
       	  ($scope.data.sgv < LOWER_ALMOST && $scope.data.sgv > UPPER_DEAD ))
       {
-      	$scope.data.mainTitle = "Almost."
+      	$scope.data.mainTitle = "Almost.";
       	$scope.data.subTitle  = "Check back soon";	
       }
       else if($scope.data.sgv === null || $scope.data.sgv <= LOWER_DEAD || $scope.data.sgv >= UPPER_DEAD)
@@ -29,13 +29,13 @@ app.controller('nightScoutCtrl', function($scope, $http) {
       }
       else if ($scope.data.sgv === undefined || $scope.data.sgv === null)
       {
-      	$scope.data.mainTitle = "Maybe?"
-	    $scope.data.subTitle = "The webservice could be down";
+      	$scope.data.mainTitle = "Maybe?";
+	$scope.data.subTitle = "The webservice could be down";
       	$scope.data.sgv = "Unavailable";
       }
       else
       {
-      	$scope.data.mainTitle = "No."
+      	$scope.data.mainTitle = "No.";
       }
     });
 });
